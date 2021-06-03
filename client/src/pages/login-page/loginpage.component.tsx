@@ -1,0 +1,84 @@
+import React, { useState, Fragment } from 'react';
+import { useDispatch } from 'react-redux';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
+import TextField from '@material-ui/core/TextField';
+import Axios from 'axios';
+import backendUrl from '../../backendUrl';
+
+import { login } from '../../redux/slices/authSlice';
+
+import { authPageStyles } from '../../styles/muiStyles';
+
+interface InputValues {
+  username: string;
+  password: string;
+}
+
+// const useStyles = makeStyles((theme: Theme) =>
+//   createStyles({
+//     root: {
+//       '& > *': {
+//         margin: theme.spacing(1),
+//         width: '25ch',
+//       },
+//     },
+//   })
+// );
+
+const LoginPage = () => {
+  const classes = authPageStyles();
+  let history = useHistory();
+  const dispatch = useDispatch();
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
+  const handleSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+
+    try {
+      dispatch(login({ username, password }));
+      history.push('/');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  return (
+    <Fragment>
+      <h1>Login Page</h1>
+      <form
+        className={classes.root}
+        noValidate
+        autoComplete="off"
+        onSubmit={handleSubmit}
+      >
+        <TextField
+          id="outlined-basic"
+          label="Username"
+          variant="outlined"
+          type="text"
+          name="username"
+          value={username}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setUsername(e.target.value)
+          }
+        />
+        <TextField
+          id="outlined-basic"
+          label="Password"
+          variant="outlined"
+          type="password"
+          name="password"
+          value={password}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPassword(e.target.value)
+          }
+        />
+        <button>Login!</button>
+      </form>
+    </Fragment>
+  );
+};
+
+export default LoginPage;
