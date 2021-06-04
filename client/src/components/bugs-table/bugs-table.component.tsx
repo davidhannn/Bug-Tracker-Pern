@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import {
   withStyles,
   Theme,
@@ -64,7 +65,7 @@ const useStyles = makeStyles({
 
 export default function BugsTable({ projectId }: { projectId: string }) {
   const classes = useStyles();
-
+  const history = useHistory();
   const { bugs } = useSelector(selectBugsState);
 
   const singleBugs = bugs[projectId];
@@ -85,7 +86,13 @@ export default function BugsTable({ projectId }: { projectId: string }) {
           {singleBugs &&
             singleBugs.map((bug) => (
               <StyledTableRow key={bug.id}>
-                <StyledTableCell component="th" scope="row">
+                <StyledTableCell
+                  component="th"
+                  scope="row"
+                  onClick={() =>
+                    history.push(`/projects/${projectId}/bugs/${bug.id}`)
+                  }
+                >
                   {bug.name}
                 </StyledTableCell>
                 <StyledTableCell align="right">{bug.priority}</StyledTableCell>

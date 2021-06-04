@@ -67,4 +67,11 @@ export const createBug = (projectId: string, bugData: BugPayload): AppThunk => {
 
 export const selectBugsState = (state: RootState) => state.bugs;
 
+export const selectBugById = (
+  state: RootState,
+  bugId: string,
+  projectId: string
+) => {
+  return state.bugs.bugs?.[projectId].find((b) => b.id === bugId);
+};
 export default bugSlice.reducer;

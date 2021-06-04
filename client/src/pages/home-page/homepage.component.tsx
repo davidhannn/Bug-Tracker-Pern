@@ -4,6 +4,7 @@ import ProjectsTable from '../../components/projects-table/projects-table.compon
 import ProjectButton from '../../components/project-button/project-button.component';
 // import ProjectHeader from '../../components/project-header/project-header.component';
 import Spinner from '../../components/spinner/spinner.component';
+import ProjectCreate from '../../components/project-create/project-create.component';
 
 import { fetchProjects } from '../../redux/slices/projectSlice';
 
@@ -18,12 +19,17 @@ const HomePage = () => {
 
   useEffect(() => {
     // dispatch(fetchProjects());
-  }, []);
+  }, [projects]);
 
   return (
     <Fragment>
+      <ProjectCreate />
       <ProjectButton />
-      {fetchStatus === 'loading' ? <Spinner /> : <ProjectsTable />}
+      {fetchStatus === 'loading' ? (
+        <Spinner />
+      ) : (
+        <ProjectsTable projects={projects} />
+      )}
     </Fragment>
   );
 };

@@ -19,7 +19,7 @@ type Priority = 'Low' | 'Medium' | 'High';
 
 @Entity('bugs')
 export default class Bug extends BaseEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @Column({ type: 'varchar', length: 60 })

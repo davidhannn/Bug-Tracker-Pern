@@ -13,7 +13,7 @@ interface InitialProjectsState {
 const initialState: InitialProjectsState = {
   projects: [],
   fetchStatus: 'idle',
-  fetchError: null
+  fetchError: null,
 };
 
 const projectsSlice = createSlice({
@@ -31,16 +31,17 @@ const projectsSlice = createSlice({
     setProjectsFetchLoading: (state) => {
       state.fetchStatus = 'loading';
       state.fetchError = null;
-    }
+    },
   },
 });
 
-export const { setProjects, addProject, setProjectsFetchLoading } = projectsSlice.actions;
+export const { setProjects, addProject, setProjectsFetchLoading } =
+  projectsSlice.actions;
 
 export const fetchProjects = (): AppThunk => {
   return async (dispatch) => {
     try {
-      dispatch(setProjectsFetchLoading())
+      dispatch(setProjectsFetchLoading());
       const allProjects = await projectService.getProjects();
       dispatch(setProjects(allProjects));
     } catch (err) {
@@ -61,5 +62,9 @@ export const createNewProject = (projectData: ProjectPayload): AppThunk => {
 };
 
 export const selectProjectsState = (state: RootState) => state.projects;
+
+export const selectProjectById = (state: RootState, projectId: string) => {
+  return state.projects.projects.find((p) => p.id === projectId);
+};
 
 export default projectsSlice.reducer;
