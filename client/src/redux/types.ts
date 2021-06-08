@@ -1,4 +1,5 @@
 export interface UserState {
+  id: string;
   username: string;
   createdAt: Date;
   updatedAt: Date;
@@ -49,7 +50,7 @@ export interface BugState {
   projectId: string;
   name: string;
   description: string;
-  priority?: string;
+  priority: BugPriority;
   isResolved: boolean;
   createdBy: User;
   updatedBy?: User;

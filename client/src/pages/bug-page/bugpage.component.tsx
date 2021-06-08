@@ -18,7 +18,8 @@ const BugPage = () => {
   console.log(bugData);
   return (
     <div>
-      <h1>{bugData && bugData.description}</h1>
+      <h1>Name: {bugData && bugData.name}</h1>
+      <h3>Description: {bugData && bugData.description}</h3>
     </div>
   );
 };

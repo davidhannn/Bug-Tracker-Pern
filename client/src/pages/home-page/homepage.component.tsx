@@ -24,7 +24,7 @@ const HomePage = () => {
   return (
     <Fragment>
       <ProjectCreate />
-      <ProjectButton />
+      {/* <ProjectButton /> */}
       {fetchStatus === 'loading' ? (
         <Spinner />
       ) : (
