@@ -32,11 +32,20 @@ const projectsSlice = createSlice({
       state.fetchStatus = 'loading';
       state.fetchError = null;
     },
+    removeProject: (state, action: PayloadAction<string>) => {
+      state.projects = state.projects.filter(
+        (project) => project.id !== action.payload
+      );
+    },
   },
 });
 
-export const { setProjects, addProject, setProjectsFetchLoading } =
-  projectsSlice.actions;
+export const {
+  setProjects,
+  addProject,
+  setProjectsFetchLoading,
+  removeProject,
+} = projectsSlice.actions;
 
 export const fetchProjects = (): AppThunk => {
   return async (dispatch) => {
@@ -55,6 +64,17 @@ export const createNewProject = (projectData: ProjectPayload): AppThunk => {
     try {
       const newProject = await projectService.createProject(projectData);
       dispatch(addProject(newProject));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const deleteProject = (projectId: string): AppThunk => {
+  return async (dispatch) => {
+    try {
+      await projectService.deleteProject(projectId);
+      dispatch(removeProject(projectId));
     } catch (err) {
       console.log(err);
     }

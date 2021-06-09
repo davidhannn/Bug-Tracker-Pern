@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import Member from '../entity/Member';
 import Project from '../entity/Project';
 import User from '../entity/User';
+import Bug from '../entity/Bug';
 
 const fieldsToSelect = [
   'project.id',
@@ -83,4 +84,19 @@ export const getProject = async (req: Request, res: Response) => {
     console.log(err);
     return res.status(404).json({ error: 'Project not found' });
   }
+};
+
+export const deleteProject = async (req: Request, res: Response) => {
+  const { projectId }: any = req.params;
+
+  const projectToDelete = await Project.findOneOrFail({ id: projectId });
+
+  // if(projectToDelete.createdById !== req.locals.user.id) {
+  //   return res.status(401).send({ message: 'access is denied'})
+  // }
+
+  await Member.delete({ projectId });
+  await Bug.delete({ projectId });
+  await projectToDelete.remove();
+  res.status(204).end();
 };
