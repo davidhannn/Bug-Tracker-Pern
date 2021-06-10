@@ -37,6 +37,16 @@ const projectsSlice = createSlice({
         (project) => project.id !== action.payload
       );
     },
+    updateProjectName: (
+      state,
+      action: PayloadAction<{ data: { name: string }; projectId: string }>
+    ) => {
+      state.projects = state.projects.map((project) =>
+        project.id === action.payload.projectId
+          ? { ...project, ...action.payload.data }
+          : project
+      );
+    },
   },
 });
 
@@ -45,6 +55,7 @@ export const {
   addProject,
   setProjectsFetchLoading,
   removeProject,
+  updateProjectName,
 } = projectsSlice.actions;
 
 export const fetchProjects = (): AppThunk => {
@@ -75,6 +86,25 @@ export const deleteProject = (projectId: string): AppThunk => {
     try {
       await projectService.deleteProject(projectId);
       dispatch(removeProject(projectId));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const editProjectName = (projectId: string, name: string): AppThunk => {
+  return async (dispatch) => {
+    try {
+      const updatedProjectName = await projectService.editProjectName(
+        projectId,
+        name
+      );
+      dispatch(
+        updateProjectName({
+          data: { name: updatedProjectName.name },
+          projectId,
+        })
+      );
     } catch (err) {
       console.log(err);
     }

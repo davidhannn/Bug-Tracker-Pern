@@ -8,24 +8,11 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
+import { navStyles } from '../../styles/muiStyles';
 import { logout } from '../../redux/slices/authSlice';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      flexGrow: 1,
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      flexGrow: 1,
-    },
-  })
-);
-
-export default function Navbar() {
-  const classes = useStyles();
+const Navbar = () => {
+  const classes = navStyles();
   const dispatch = useDispatch();
 
   const handleLogout = () => {
@@ -54,4 +41,6 @@ export default function Navbar() {
       </AppBar>
     </div>
   );
-}
+};
+
+export default Navbar;

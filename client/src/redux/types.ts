@@ -33,11 +33,6 @@ export interface ProjectState {
   bugs: BugState[];
 }
 
-export interface User {
-  id: string;
-  username: string;
-}
-
 export interface ProjectPayload {
   name: string;
   members?: string[];

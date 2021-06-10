@@ -100,3 +100,14 @@ export const deleteProject = async (req: Request, res: Response) => {
   await projectToDelete.remove();
   res.status(204).end();
 };
+
+export const editProjectName = async (req: Request, res: Response) => {
+  const { name } = req.body;
+  const { projectId }: any = req.params;
+
+  const projectToEdit = await Project.findOneOrFail({ id: projectId });
+
+  projectToEdit.name = name;
+  await projectToEdit.save();
+  res.json(projectToEdit);
+};

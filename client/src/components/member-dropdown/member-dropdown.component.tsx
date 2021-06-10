@@ -17,6 +17,7 @@ import Chip from '@material-ui/core/Chip';
 
 import { useSelector } from 'react-redux';
 import { selectUsersState } from '../../redux/slices/usersSlice';
+import { selectAuthState } from '../../redux/slices/authSlice';
 import { User } from '../../redux/types';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -50,19 +51,6 @@ const MenuProps = {
   },
 };
 
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-];
-
 function getStyles(name: string, personName: string[], theme: Theme) {
   return {
     fontWeight:
@@ -74,6 +62,7 @@ function getStyles(name: string, personName: string[], theme: Theme) {
 
 export default function MemberDropdown() {
   const { users } = useSelector(selectUsersState);
+  const { user } = useSelector(selectAuthState);
   const classes = useStyles();
   const theme = useTheme();
   const [personName, setPersonName] = React.useState<string[]>([]);

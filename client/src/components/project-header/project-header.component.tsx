@@ -11,6 +11,8 @@ import ConfirmDialog from '../confirm-dialog/confirm-dialog.component';
 import FormDialog from '../form-dialog/form-dialog.component';
 import { formatDateTime } from '../../utils/helper';
 
+import ProjectForm from '../project-form/project-form.component';
+
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 const ProjectHeader: React.FC<{ currentProject: ProjectState }> = ({
@@ -46,7 +48,7 @@ const ProjectHeader: React.FC<{ currentProject: ProjectState }> = ({
               title="Edit Project Name"
               buttonType={{ type: 'icon', icon: EditIcon, size: 'small' }}
             >
-              <h1>testing</h1>
+              <ProjectForm editMode="name" currentName={name} projectId={id} />
             </FormDialog>
           ) : null}
           <Typography>Admin: {createdBy.username} </Typography>

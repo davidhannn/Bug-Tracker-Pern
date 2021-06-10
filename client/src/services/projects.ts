@@ -35,11 +35,24 @@ const deleteProject = async (projectId: string) => {
   return response;
 };
 
+const editProjectName = async (projectId: string, newProjectName: string) => {
+  const response = await Axios.put(
+    `${backendUrl}/projects/${projectId}`,
+    { name: newProjectName },
+    {
+      withCredentials: true,
+    }
+  );
+
+  return response.data;
+};
+
 const projectService = {
   getProjects,
   createProject,
   getProject,
   deleteProject,
+  editProjectName,
 };
 
 export default projectService;
