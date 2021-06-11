@@ -3,17 +3,22 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { ProjectState, ProjectPayload } from '../types';
 import projectService from '../../services/projects';
+import { History } from 'history';
 
 interface InitialProjectsState {
   projects: ProjectState[];
   fetchStatus: 'idle' | 'loading' | 'success' | 'fail';
   fetchError: string | null;
+  submitLoading: boolean;
+  submitError: string | null;
 }
 
 const initialState: InitialProjectsState = {
   projects: [],
   fetchStatus: 'idle',
   fetchError: null,
+  submitLoading: false,
+  submitError: null,
 };
 
 const projectsSlice = createSlice({
@@ -26,7 +31,9 @@ const projectsSlice = createSlice({
       state.fetchError = null;
     },
     addProject: (state, action: PayloadAction<ProjectState>) => {
-      state.projects.push(action.payload);
+      state.projects = [...state.projects, action.payload];
+      state.submitLoading = false;
+      state.submitError = null;
     },
     setProjectsFetchLoading: (state) => {
       state.fetchStatus = 'loading';
@@ -47,6 +54,10 @@ const projectsSlice = createSlice({
           : project
       );
     },
+    setSubmitProjectLoading: (state) => {
+      state.submitLoading = true;
+      state.submitError = null;
+    },
   },
 });
 
@@ -56,6 +67,7 @@ export const {
   setProjectsFetchLoading,
   removeProject,
   updateProjectName,
+  setSubmitProjectLoading,
 } = projectsSlice.actions;
 
 export const fetchProjects = (): AppThunk => {
@@ -70,21 +82,30 @@ export const fetchProjects = (): AppThunk => {
   };
 };
 
-export const createNewProject = (projectData: ProjectPayload): AppThunk => {
+export const createNewProject = (
+  projectData: ProjectPayload,
+  closeDialog?: () => void
+): AppThunk => {
   return async (dispatch) => {
     try {
+      dispatch(setSubmitProjectLoading());
       const newProject = await projectService.createProject(projectData);
       dispatch(addProject(newProject));
+      closeDialog && closeDialog();
     } catch (err) {
       console.log(err);
     }
   };
 };
 
-export const deleteProject = (projectId: string): AppThunk => {
+export const deleteProject = (
+  projectId: string,
+  history: History
+): AppThunk => {
   return async (dispatch) => {
     try {
       await projectService.deleteProject(projectId);
+      history.push('/');
       dispatch(removeProject(projectId));
     } catch (err) {
       console.log(err);

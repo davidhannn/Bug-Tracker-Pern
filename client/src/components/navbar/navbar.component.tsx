@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -14,11 +15,13 @@ import { logout } from '../../redux/slices/authSlice';
 const Navbar = () => {
   const classes = navStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleLogout = () => {
     dispatch(logout());
     window.location.reload();
   };
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -31,7 +34,11 @@ const Navbar = () => {
           >
             <MenuIcon />
           </IconButton> */}
-          <Typography variant="h6" className={classes.title}>
+          <Typography
+            variant="h6"
+            className={classes.title}
+            onClick={() => history.push('/')}
+          >
             Bug Tracker
           </Typography>
           <Button color="inherit" onClick={handleLogout}>

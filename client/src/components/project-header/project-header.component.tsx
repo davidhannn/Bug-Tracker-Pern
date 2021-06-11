@@ -4,6 +4,7 @@ import { Icon, Paper, Typography, useMediaQuery } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import { useHeaderStyles } from '../../styles/muiStyles';
 
+import { useHistory } from 'react-router-dom';
 import { selectAuthState } from '../../redux/slices/authSlice';
 import { deleteProject } from '../../redux/slices/projectSlice';
 import { ProjectState } from '../../redux/types';
@@ -20,6 +21,7 @@ const ProjectHeader: React.FC<{ currentProject: ProjectState }> = ({
 }) => {
   const classes = useHeaderStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
   const { user } = useSelector(selectAuthState);
   const { createdAt, createdBy, id, members, name, updatedAt } = currentProject;
 
@@ -35,7 +37,7 @@ const ProjectHeader: React.FC<{ currentProject: ProjectState }> = ({
   // };
 
   const handleProjectDelete = () => {
-    dispatch(deleteProject(id));
+    dispatch(deleteProject(id, history));
   };
 
   return (

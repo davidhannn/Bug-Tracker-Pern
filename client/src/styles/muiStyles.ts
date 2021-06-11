@@ -15,14 +15,29 @@ export const navStyles = makeStyles((theme) => ({
 export const authPageStyles = makeStyles((theme) => ({
   root: {
     padding: '1.5em 3em',
-    width: '330px',
+    width: '500px',
     margin: 'auto',
     marginTop: '16vH',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
     [theme.breakpoints.down('xs')]: {
       width: 'auto',
       margin: '0.5em 0.5em',
       padding: '1em',
     },
+  },
+  inputField: {
+    padding: '1.5rem',
+    width: '450px',
+    margin: 'auto',
+  },
+  submitButton: {
+    padding: '1.5rem 1.5rem',
+    width: '450px',
+    margin: 'auto',
+    backgroundColor: 'lightblue',
   },
 }));
 
@@ -88,3 +103,15 @@ export const useTableStyles = makeStyles(
   }),
   { index: 1 }
 );
+
+export const useFormStyles = makeStyles((theme) => ({
+  formControlLabels: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '80%',
+    [theme.breakpoints.down('xs')]: {
+      flexDirection: 'column',
+      width: 'auto',
+    },
+  },
+}));

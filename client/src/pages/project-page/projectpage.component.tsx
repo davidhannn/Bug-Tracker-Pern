@@ -7,8 +7,13 @@ import BugsCreate from '../../components/bugs-create/bugs-create.component';
 import ProjectHeader from '../../components/project-header/project-header.component';
 
 import { selectProjectById } from '../../redux/slices/projectSlice';
-import { fetchBugs } from '../../redux/slices/bugSlice';
+import {
+  fetchBugs,
+  selectBugsStateForProject,
+  selectBugsState,
+} from '../../redux/slices/bugSlice';
 
+import Spinner from '../../components/spinner/spinner.component';
 interface ParamTypes {
   projectId: string;
 }
@@ -18,6 +23,12 @@ const ProjectPage = () => {
   const dispatch = useDispatch();
   const currentProject = useSelector((state: RootState) =>
     selectProjectById(state, projectId)
+  );
+
+  const { fetchStatus } = useSelector(selectBugsState);
+
+  const bugs = useSelector((state: RootState) =>
+    selectBugsStateForProject(state, projectId)
   );
 
   useEffect(() => {
@@ -31,7 +42,7 @@ const ProjectPage = () => {
         <ProjectHeader currentProject={currentProject} />
       ) : null}
       <BugsCreate projectId={projectId} />
-      <BugsTable projectId={projectId} />
+      {fetchStatus === true ? <Spinner /> : <BugsTable projectId={projectId} />}
     </Fragment>
   );
 };

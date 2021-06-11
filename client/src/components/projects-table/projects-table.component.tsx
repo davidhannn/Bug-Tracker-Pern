@@ -86,11 +86,11 @@ const ProjectsTable: React.FC<{ projects: ProjectState[] }> = ({
                 </TableCell>
                 <TableCell align="right">
                   <BugReportIcon />
-                  {project && project.bugs.length}
+                  {/* {project && project.bugs.length} */}
                 </TableCell>
                 <TableCell align="right">
                   <PersonIcon />
-                  {project && project.members.length}
+                  {/* {project && project.members.length} */}
                 </TableCell>
                 <TableCell align="right">
                   {project && project.createdBy.username}

@@ -19,10 +19,10 @@ import { useSelector } from 'react-redux';
 import { getUsers, selectUsersState } from '../../redux/slices/usersSlice';
 import { selectAuthState } from '../../redux/slices/authSlice';
 import { editProjectName } from '../../redux/slices/projectSlice';
-import MemberDropdown from '../../components/member-dropdown/member-dropdown.component';
 
 import { User } from '../../redux/types';
 import { createNewProject } from '../../redux/slices/projectSlice';
+import { useFormStyles } from '../../styles/muiStyles';
 
 interface CreateProject {
   editMode: 'project';
@@ -53,6 +53,7 @@ const ProjectForm: React.FC<ProjectFormType> = ({
   projectId,
   closeDialog,
 }) => {
+  const classes = useFormStyles();
   const dispatch = useDispatch();
   const { users } = useSelector(selectUsersState);
   const { user } = useSelector(selectAuthState);
@@ -71,7 +72,7 @@ const ProjectForm: React.FC<ProjectFormType> = ({
 
   const handleCreateProject = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    dispatch(createNewProject({ name, members }));
+    dispatch(createNewProject({ name, members }, closeDialog));
   };
 
   const handleEditProjectName = () => {
@@ -90,6 +91,7 @@ const ProjectForm: React.FC<ProjectFormType> = ({
             id="outlined-basic"
             label="Project Name"
             variant="outlined"
+            fullWidth
             type="text"
             name="name"
             value={name}

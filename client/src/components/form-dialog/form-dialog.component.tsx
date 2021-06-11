@@ -16,21 +16,9 @@ import {
   Typography,
   Fab,
 } from '@material-ui/core';
-import { ButtonTypes } from '../types';
 
-const styles = (theme: Theme) =>
-  createStyles({
-    root: {
-      margin: 0,
-      padding: theme.spacing(2),
-    },
-    closeButton: {
-      position: 'absolute',
-      right: theme.spacing(1),
-      top: theme.spacing(1),
-      color: theme.palette.grey[500],
-    },
-  });
+import { useDialogStyles } from '../../styles/dialogStyles';
+import { ButtonTypes } from '../types';
 
 const FormDialog: React.FC<{
   title: string;
@@ -38,6 +26,7 @@ const FormDialog: React.FC<{
   children: React.ReactNode;
 }> = ({ title, buttonType, children }) => {
   const [open, setOpen] = React.useState(false);
+  const classes = useDialogStyles();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -78,12 +67,13 @@ const FormDialog: React.FC<{
   };
 
   return (
-    <div>
+    <div style={{ display: 'inline' }}>
       {displayedButton()}
       <Dialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
+        classes={{ paper: classes.dialogWrapper }}
       >
         <DialogTitle id="customized-dialog-title">{title}</DialogTitle>
         <DialogContent>{children}</DialogContent>
