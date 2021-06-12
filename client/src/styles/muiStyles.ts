@@ -44,6 +44,8 @@ export const authPageStyles = makeStyles((theme) => ({
 export const useHeaderStyles = makeStyles((theme) => ({
   root: {
     padding: '1em 0',
+    display: 'flex',
+    flexDirection: 'column',
     [theme.breakpoints.down('xs')]: {
       padding: '0.5em 0.5em',
     },
@@ -52,11 +54,18 @@ export const useHeaderStyles = makeStyles((theme) => ({
     padding: '0.8em 1.5em',
     marginBottom: '1em',
     display: 'flex',
-    alignItems: 'center',
+    flexDirection: 'column',
+    alignItems: 'left',
     [theme.breakpoints.down('xs')]: {
       padding: '0.3em 0.5em',
       marginBottom: '0.5em',
     },
+  },
+  adminButtons: {
+    marginTop: '1rem',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: '',
   },
 }));
 
@@ -65,8 +74,8 @@ export const useTableStyles = makeStyles(
     table: {
       '& thead th': {
         fontWeight: '600',
-        color: theme.palette.secondary.main,
-        backgroundColor: theme.palette.primary.light,
+        color: '#003d6a',
+        backgroundColor: '#cce4f6',
       },
     },
     clickableCell: {
@@ -105,13 +114,52 @@ export const useTableStyles = makeStyles(
 );
 
 export const useFormStyles = makeStyles((theme) => ({
-  formControlLabels: {
-    display: 'flex',
-    justifyContent: 'space-between',
+  // formControlLabels: {
+  //   display: 'flex',
+  //   justifyContent: 'space-between',
+  //   width: '80%',
+  //   [theme.breakpoints.down('xs')]: {
+  //     flexDirection: 'column',
+  //     width: 'auto',
+  //   },
+  // },
+  inputField: {
+    marginBottom: '1rem',
+  },
+  submitButton: {
+    width: '100%',
+  },
+}));
+
+export const useHomePageStyles = makeStyles((theme) => ({
+  root: {
+    margin: '0 auto',
     width: '80%',
-    [theme.breakpoints.down('xs')]: {
-      flexDirection: 'column',
-      width: 'auto',
-    },
+  },
+  body: {
+    width: '100%',
+    padding: '2rem',
+    marginTop: '2rem',
+  },
+}));
+
+export const useBodyStyles = makeStyles((theme) => ({
+  root: {
+    backgroundColor: '#cce4f6',
+    height: '100vh',
+    width: '100vw',
+  },
+}));
+
+export const useBugPageStyles = makeStyles((theme) => ({
+  root: {
+    margin: '0 auto',
+    width: '80%',
+    height: '100vh',
+  },
+  body: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
 }));

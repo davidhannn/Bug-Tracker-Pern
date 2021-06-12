@@ -24,34 +24,6 @@ import { selectProjectsState } from '../../redux/slices/projectSlice';
 import { ProjectState } from '../../redux/types';
 import { useTableStyles } from '../../styles/muiStyles';
 
-// const StyledTableCell = withStyles((theme: Theme) =>
-//   createStyles({
-//     head: {
-//       backgroundColor: theme.palette.common.black,
-//       color: theme.palette.common.white,
-//     },
-//     body: {
-//       fontSize: 14,
-//     },
-//   })
-// )(TableCell);
-
-// const StyledTableRow = withStyles((theme: Theme) =>
-//   createStyles({
-//     root: {
-//       '&:nth-of-type(odd)': {
-//         backgroundColor: theme.palette.action.hover,
-//       },
-//     },
-//   })
-// )(TableRow);
-
-// const useStyles = makeStyles({
-//   table: {
-//     minWidth: 700,
-//   },
-// });
-
 const ProjectsTable: React.FC<{ projects: ProjectState[] }> = ({
   projects,
 }) => {

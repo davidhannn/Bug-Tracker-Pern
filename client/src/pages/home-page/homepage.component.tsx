@@ -1,5 +1,8 @@
 import { useEffect, useState, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { Paper } from '@material-ui/core';
+
 import ProjectsTable from '../../components/projects-table/projects-table.component';
 import ProjectButton from '../../components/project-button/project-button.component';
 // import ProjectHeader from '../../components/project-header/project-header.component';
@@ -14,11 +17,14 @@ import { fetchProjects } from '../../redux/slices/projectSlice';
 
 import { selectProjectsState } from '../../redux/slices/projectSlice';
 
+import { useHomePageStyles } from '../../styles/muiStyles';
+
 import Axios from 'axios';
 
 const HomePage = () => {
   const { projects, fetchStatus, fetchError } =
     useSelector(selectProjectsState);
+  const classes = useHomePageStyles();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,21 +32,22 @@ const HomePage = () => {
   }, [projects]);
 
   return (
-    <Fragment>
-      {/* <ProjectCreate /> */}
-      <FormDialog
-        title="Create Project"
-        buttonType={{ type: 'normal', text: 'Create Project', icon: AddIcon }}
-      >
-        <ProjectForm editMode="project" />
-      </FormDialog>
-      {/* <ProjectButton /> */}
-      {fetchStatus === 'loading' ? (
-        <Spinner />
-      ) : (
-        <ProjectsTable projects={projects} />
-      )}
-    </Fragment>
+    <div className={classes.root}>
+      <Paper className={classes.body} elevation={3}>
+        <FormDialog
+          title="Create Project"
+          buttonType={{ type: 'normal', text: 'Create Project', icon: AddIcon }}
+        >
+          <ProjectForm editMode="project" />
+        </FormDialog>
+
+        {fetchStatus === 'loading' ? (
+          <Spinner />
+        ) : (
+          <ProjectsTable projects={projects} />
+        )}
+      </Paper>
+    </div>
   );
 };
 

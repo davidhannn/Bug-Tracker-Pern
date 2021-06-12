@@ -15,6 +15,7 @@ import { formatDateTime } from '../../utils/helper';
 import ProjectForm from '../project-form/project-form.component';
 
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import GroupIcon from '@material-ui/icons/Group';
 
 const ProjectHeader: React.FC<{ currentProject: ProjectState }> = ({
   currentProject,
@@ -27,14 +28,35 @@ const ProjectHeader: React.FC<{ currentProject: ProjectState }> = ({
 
   const isAdmin = user?.id === createdBy.id;
 
-  // const adminButtons = () => {
-  //   if (!isAdmin) return null;
+  const adminButtons = () => {
+    if (!isAdmin) return null;
 
-  //   return (
-
-  //   )
-
-  // };
+    return (
+      <>
+        <ConfirmDialog
+          title="Confirm Delete Project"
+          bodyContent="Do you want to permanently delete your project?"
+          buttonText="Delete Project"
+          buttonType={{
+            type: 'normal',
+            text: 'Delete Project',
+            icon: DeleteOutlineIcon,
+          }}
+          actionFunction={handleProjectDelete}
+        />
+        <FormDialog
+          title="Add Project Members"
+          buttonType={{
+            type: 'normal',
+            text: 'Add Members',
+            icon: GroupIcon,
+          }}
+        >
+          <ProjectForm editMode="members" projectId={id} />
+        </FormDialog>
+      </>
+    );
+  };
 
   const handleProjectDelete = () => {
     dispatch(deleteProject(id, history));
@@ -44,7 +66,9 @@ const ProjectHeader: React.FC<{ currentProject: ProjectState }> = ({
     <div className={classes.root}>
       <Paper className={classes.headerPaper}>
         <div>
-          <Typography>{name}</Typography>
+          <Typography style={{ fontSize: '2rem', fontWeight: 'bold' }}>
+            {name}
+          </Typography>
           {isAdmin ? (
             <FormDialog
               title="Edit Project Name"
@@ -53,24 +77,12 @@ const ProjectHeader: React.FC<{ currentProject: ProjectState }> = ({
               <ProjectForm editMode="name" currentName={name} projectId={id} />
             </FormDialog>
           ) : null}
-          <Typography>Admin: {createdBy.username} </Typography>
-          <Typography>Created On: {formatDateTime(createdAt)}</Typography>
         </div>
-        <div>
-          {isAdmin ? (
-            <ConfirmDialog
-              title="Confirm Delete Project"
-              bodyContent="Do you want to permanently delete your project?"
-              buttonText="Delete Project"
-              buttonType={{
-                type: 'normal',
-                text: 'Delete Project',
-                icon: DeleteOutlineIcon,
-              }}
-              actionFunction={handleProjectDelete}
-            />
-          ) : null}
-        </div>
+
+        <Typography>Admin: {createdBy.username}</Typography>
+        <Typography>Created On: {formatDateTime(createdAt)}</Typography>
+
+        <div className={classes.adminButtons}>{adminButtons()}</div>
       </Paper>
     </div>
   );

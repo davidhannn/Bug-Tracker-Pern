@@ -6,18 +6,21 @@ import Axios from 'axios';
 import backendUrl from './backendUrl';
 
 import { autoLogin, selectAuthState } from './redux/slices/authSlice';
+import classes from '*.module.css';
+import { useBodyStyles } from './styles/muiStyles';
 
 Axios.defaults.withCredentials = true;
 
 const App = () => {
   const dispatch = useDispatch();
+  const classes = useBodyStyles();
 
   useEffect(() => {
     dispatch(autoLogin());
   }, []);
 
   return (
-    <div>
+    <div className={classes.root}>
       <Routes />
     </div>
   );

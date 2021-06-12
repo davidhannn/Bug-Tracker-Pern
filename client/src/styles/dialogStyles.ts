@@ -3,8 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 export const useDialogStyles = makeStyles(
   (theme) => ({
     dialogWrapper: {
-      padding: 20,
+      padding: '1.5rem',
+      marginBottom: '1rem',
       overflow: 'hidden',
+      width: '50%',
       [theme.breakpoints.down('xs')]: {
         padding: 0,
       },

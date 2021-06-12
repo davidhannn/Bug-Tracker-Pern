@@ -43,11 +43,27 @@ const ConfirmDialog: React.FC<{
     handleClose();
   };
 
+  const displayedButton = () => {
+    if (buttonType.type === 'normal') {
+      return (
+        <Button
+          onClick={handleClickOpen}
+          color={buttonType.color || 'primary'}
+          variant={buttonType.variant || 'contained'}
+          size={buttonType.size || 'medium'}
+          startIcon={<buttonType.icon />}
+          style={buttonType.style}
+          className={buttonType.className}
+        >
+          {buttonType.text}
+        </Button>
+      );
+    }
+  };
+
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        {buttonText}
-      </Button>
+      {displayedButton()}
       <Dialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"

@@ -32,9 +32,13 @@ interface CreateProject {
   closeDialog?: () => void;
 }
 
-// interface AddMembers {
-
-// }
+interface AddMembers {
+  editMode: 'members';
+  currentName?: string;
+  currentMembers?: string[];
+  projectId: string;
+  closeDialog?: () => void;
+}
 
 interface EditProjectName {
   editMode: 'name';
@@ -44,7 +48,7 @@ interface EditProjectName {
   closeDialog?: () => void;
 }
 
-type ProjectFormType = CreateProject | EditProjectName;
+type ProjectFormType = CreateProject | EditProjectName | AddMembers;
 
 const ProjectForm: React.FC<ProjectFormType> = ({
   editMode,
@@ -79,10 +83,18 @@ const ProjectForm: React.FC<ProjectFormType> = ({
     dispatch(editProjectName(projectId as string, projectName));
   };
 
+  const handleAddMembers = () => {
+    console.log('ttesting');
+  };
+
   return (
     <form
       onSubmit={
-        editMode === 'project' ? handleCreateProject : handleEditProjectName
+        editMode === 'project'
+          ? handleCreateProject
+          : editMode === 'name'
+          ? handleEditProjectName
+          : handleAddMembers
       }
     >
       {editMode === 'project' ? (
@@ -95,6 +107,7 @@ const ProjectForm: React.FC<ProjectFormType> = ({
             type="text"
             name="name"
             value={name}
+            className={classes.inputField}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setName(e.target.value)
             }
@@ -102,6 +115,7 @@ const ProjectForm: React.FC<ProjectFormType> = ({
           <Autocomplete
             multiple
             id="tags-outlined"
+            className={classes.inputField}
             onChange={selectMembersOnChange}
             options={users.filter((projectUser) =>
               user != null ? projectUser.id !== user.id : null
@@ -127,6 +141,7 @@ const ProjectForm: React.FC<ProjectFormType> = ({
             label="Edit Project Name"
             variant="outlined"
             type="text"
+            className={classes.inputField}
             defaultValue={currentName}
             value={projectName}
             onChange={(e) => setProjectName(e.target.value)}
@@ -134,11 +149,44 @@ const ProjectForm: React.FC<ProjectFormType> = ({
         </Fragment>
       ) : null}
 
-      <Button size="large" color="primary" variant="contained" type="submit">
+      {editMode === 'members' ? (
+        <Fragment>
+          <Autocomplete
+            multiple
+            id="tags-outlined"
+            className={classes.inputField}
+            onChange={selectMembersOnChange}
+            options={users.filter((projectUser) =>
+              user != null ? projectUser.id !== user.id : null
+            )}
+            getOptionLabel={(user) => user && user.username}
+            defaultValue={[]}
+            filterSelectedOptions
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="outlined"
+                label="Select Members"
+                placeholder="Favorites"
+              />
+            )}
+          />
+        </Fragment>
+      ) : null}
+
+      <Button
+        size="large"
+        color="primary"
+        variant="contained"
+        type="submit"
+        className={classes.submitButton}
+      >
         {editMode === 'name'
           ? 'Edit Project Name'
           : editMode === 'project'
           ? 'Add Project'
+          : editMode === 'members'
+          ? 'Add Members'
           : null}
       </Button>
     </form>
