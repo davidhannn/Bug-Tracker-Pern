@@ -22,6 +22,18 @@ const createBug = async (projectId: string, bugData: BugPayload) => {
 
   return response.data;
 };
-const bugService = { getBugs, createBug };
+
+const deleteBug = async (projectId: string, bugId: string) => {
+  const response = await Axios.delete(
+    `${backendUrl}/projects/${projectId}/bugs/${bugId}`,
+    {
+      withCredentials: true,
+    }
+  );
+
+  return response.data;
+};
+
+const bugService = { getBugs, createBug, deleteBug };
 
 export default bugService;

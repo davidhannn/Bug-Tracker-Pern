@@ -145,7 +145,7 @@ export const useHomePageStyles = makeStyles((theme) => ({
 
 export const useBodyStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: '#cce4f6',
+    // backgroundColor: '#cce4f6',
     height: '100vh',
     width: '100vw',
   },

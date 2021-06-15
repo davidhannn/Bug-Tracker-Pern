@@ -1,5 +1,6 @@
 import { Request, response, Response } from 'express';
 import Bug from '../entity/Bug';
+import Project from '../entity/Project';
 
 export const getBugs = async (req: Request, res: Response) => {
   const { projectId } = req.params;
@@ -32,4 +33,23 @@ export const createBug = async (req: Request, res: Response) => {
   } catch (err) {
     console.log(err);
   }
+};
+
+export const deleteBug = async (req: Request, res: Response) => {
+  const { projectId, bugId } = req.params;
+
+  const targetProject = await Project.findOne({ id: projectId });
+
+  if (!targetProject) {
+    return res.status(404).send({ message: 'Incorrect Project' });
+  }
+
+  const targetBug = await Bug.findOne({ id: bugId });
+
+  if (!targetBug) {
+    return res.status(404).send({ message: 'Invalid bug ID.' });
+  }
+
+  await targetBug.remove();
+  return res.status(204).end();
 };

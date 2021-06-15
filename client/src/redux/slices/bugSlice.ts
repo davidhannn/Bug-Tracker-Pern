@@ -3,7 +3,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { BugState, BugPayload } from '../types';
 import bugService from '../../services/bug';
-
 interface InitialBugState {
   bugs: { [projectId: string]: BugState[] };
   fetchStatus: boolean;
@@ -47,6 +46,14 @@ const bugSlice = createSlice({
         state.bugs[action.payload.projectId] = [action.payload.bug];
       }
     },
+    removeBug: (
+      state,
+      action: PayloadAction<{ projectId: string; bugId: string }>
+    ) => {
+      state.bugs[action.payload.projectId] = state.bugs[
+        action.payload.projectId
+      ].filter((bug) => bug.id !== action.payload.bugId);
+    },
     setFetchBug: (state) => {
       state.fetchStatus = true;
       state.fetchError = null;
@@ -58,7 +65,8 @@ const bugSlice = createSlice({
   },
 });
 
-export const { setBugs, addBug, setSubmitBug, setFetchBug } = bugSlice.actions;
+export const { setBugs, addBug, setSubmitBug, setFetchBug, removeBug } =
+  bugSlice.actions;
 
 export const fetchBugs = (projectId: string): AppThunk => {
   return async (dispatch) => {
@@ -81,6 +89,13 @@ export const createBug = (projectId: string, bugData: BugPayload): AppThunk => {
     } catch (err) {
       console.log(err);
     }
+  };
+};
+
+export const deleteBug = (projectId: string, bugId: string): AppThunk => {
+  return async (dispatch) => {
+    await bugService.deleteBug(projectId, bugId);
+    dispatch(removeBug({ projectId, bugId }));
   };
 };
 
