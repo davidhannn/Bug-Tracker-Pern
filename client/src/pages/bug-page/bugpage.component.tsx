@@ -20,6 +20,8 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 import RedoIcon from '@material-ui/icons/Redo';
 
+import { priorityStyles, statusStyles } from '../../styles/buttonStyles';
+
 interface ParamTypes {
   projectId: string;
   bugId: string;
@@ -129,11 +131,33 @@ const BugPage = () => {
           <h3>Bug Details</h3>
           <Typography>Created By: {createdBy.username}</Typography>
           <Typography>Created On {bug && formatDateTime(createdAt)}</Typography>
-          <Typography>Priority: {priority}</Typography>
-          <Typography>Status: {isResolved ? 'Closed' : 'Open'}</Typography>
+          <Typography>
+            Priority:
+            <div
+              style={{
+                ...priorityStyles(bug.priority),
+                textTransform: 'capitalize',
+                display: 'inline',
+              }}
+            >
+              {priority}
+            </div>
+          </Typography>
+
+          <Typography>
+            Status:
+            <div
+              style={{
+                ...statusStyles(bug.isResolved),
+                display: 'inline',
+              }}
+            >
+              {bug.isResolved ? 'Closed' : 'Open'}
+            </div>
+          </Typography>
         </div>
       </Paper>
-      {adminButtons()}
+      <div className={classes.buttons}>{adminButtons()}</div>
     </div>
   );
 };

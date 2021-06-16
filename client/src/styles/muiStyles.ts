@@ -129,6 +129,32 @@ export const useFormStyles = makeStyles((theme) => ({
   submitButton: {
     width: '100%',
   },
+  formControl: {
+    width: '100%',
+    marginTop: '0.5rem',
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  radioGroupForm: {
+    marginTop: '0.8em',
+    width: '100%',
+  },
+  radioGroup: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  radioGroupLabel: {
+    marginRight: '2em',
+  },
+  formControlLabels: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '80%',
+    [theme.breakpoints.down('xs')]: {
+      flexDirection: 'column',
+      width: 'auto',
+    },
+  },
 }));
 
 export const useHomePageStyles = makeStyles((theme) => ({
@@ -160,6 +186,13 @@ export const useBugPageStyles = makeStyles((theme) => ({
   body: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
+    marginTop: '2rem',
+    padding: '2rem',
+  },
+  buttons: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginTop: '2rem',
   },
 }));

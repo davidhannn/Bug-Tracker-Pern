@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, Fragment } from 'react';
 
 import { useDispatch } from 'react-redux';
 
@@ -76,54 +76,61 @@ const BugForm: React.FC<BugFormTypes> = ({
   return (
     <form onSubmit={editMode === 'add' ? handleAddBug : handleEditBug}>
       {editMode === 'add' ? (
-        <DialogContent dividers>
+        <Fragment>
           <TextField
             id="outlined-basic"
             label="Bug Title"
             variant="outlined"
             name="title"
+            fullWidth
             value={name}
+            className={classes.inputField}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setName(e.target.value)
             }
           />
           <TextField
             id="outlined-basic"
-            multiline={true}
-            rows={5}
+            // multiline={true}
+            // rows={2}
+            fullWidth
+            className={classes.inputField}
             label="Description"
             variant="outlined"
             name="description"
-            style={{ height: 10 }}
             value={description}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setDescription(e.target.value)
             }
           />
-          <FormControl component="fieldset">
-            <FormLabel component="legend">Priority</FormLabel>
+          <FormControl component="fieldset" className={classes.radioGroupForm}>
             <RadioGroup
-              aria-label="gender"
-              name="gender1"
+              row
+              defaultValue="low"
               value={priority}
               onChange={handleChange}
+              className={classes.radioGroup}
             >
-              <FormControlLabel value="Low" control={<Radio />} label="Low" />
-              <FormControlLabel
-                value="Medium"
-                control={<Radio />}
-                label="Medium"
-              />
-              <FormControlLabel value="High" control={<Radio />} label="High" />
-              <FormControlLabel
-                value="disabled"
-                disabled
-                control={<Radio />}
-                label="(Disabled option)"
-              />
+              <FormLabel component="legend" className={classes.radioGroupLabel}>
+                Priority:
+              </FormLabel>
+
+              <div className={classes.formControlLabels}>
+                <FormControlLabel value="Low" control={<Radio />} label="Low" />
+                <FormControlLabel
+                  value="Medium"
+                  control={<Radio />}
+                  label="Medium"
+                />
+                <FormControlLabel
+                  value="High"
+                  control={<Radio />}
+                  label="High"
+                />
+              </div>
             </RadioGroup>
           </FormControl>
-        </DialogContent>
+        </Fragment>
       ) : null}
       <Button
         size="large"
