@@ -34,6 +34,25 @@ const deleteBug = async (projectId: string, bugId: string) => {
   return response.data;
 };
 
-const bugService = { getBugs, createBug, deleteBug };
+const closeBug = async (projectId: string, bugId: string) => {
+  const response = await Axios.post(
+    `${backendUrl}/projects/${projectId}/bugs/${bugId}/close`,
+    null,
+    {
+      withCredentials: true,
+    }
+  );
+
+  return response.data;
+};
+
+const reopenBug = async (projectId: string, bugId: string) => {
+  const response = await Axios.post(
+    `${backendUrl}/projects/${projectId}/bugs/${bugId}/reopen`,
+    null,
+    { withCredentials: true }
+  );
+};
+const bugService = { getBugs, createBug, deleteBug, closeBug, reopenBug };
 
 export default bugService;

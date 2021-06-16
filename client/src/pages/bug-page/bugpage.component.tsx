@@ -1,11 +1,15 @@
-import React from 'react';
+import { Fragment } from 'react';
 import { RootState } from '../../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 
 import { Paper, Typography } from '@material-ui/core';
 import { selectAuthState } from '../../redux/slices/authSlice';
-import { selectBugById, deleteBug } from '../../redux/slices/bugSlice';
+import {
+  selectBugById,
+  deleteBug,
+  resolveBug,
+} from '../../redux/slices/bugSlice';
 import { formatDateTime } from '../../utils/helper';
 
 import { useBugPageStyles } from '../../styles/muiStyles';
@@ -13,6 +17,9 @@ import { useBugPageStyles } from '../../styles/muiStyles';
 import ConfirmDialog from '../../components/confirm-dialog/confirm-dialog.component';
 
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
+import RedoIcon from '@material-ui/icons/Redo';
+
 interface ParamTypes {
   projectId: string;
   bugId: string;
@@ -57,21 +64,58 @@ const BugPage = () => {
     history.push(`/projects/${projectId}`);
   };
 
+  const handleBugReopen = () => {
+    console.log('testing bug reopen');
+    dispatch(resolveBug(projectId, bugId, 'reopen'));
+  };
+
+  const handleBugClose = () => {
+    console.log('testing bug close');
+    dispatch(resolveBug(projectId, bugId, 'close'));
+  };
+
   const adminButtons = () => {
     if (!isAdmin) return null;
 
     return (
-      <ConfirmDialog
-        title="Delete Bug"
-        bodyContent="Do you want to permanently delete your bug?"
-        buttonText="Delete Bug"
-        buttonType={{
-          type: 'normal',
-          text: 'Delete Bug',
-          icon: DeleteOutlineIcon,
-        }}
-        actionFunction={handleBugDelete}
-      ></ConfirmDialog>
+      <Fragment>
+        <ConfirmDialog
+          title="Delete Bug"
+          bodyContent="Do you want to permanently delete your bug?"
+          buttonText="Delete Bug"
+          buttonType={{
+            type: 'normal',
+            text: 'Delete Bug',
+            icon: DeleteOutlineIcon,
+          }}
+          actionFunction={handleBugDelete}
+        ></ConfirmDialog>
+        {isResolved ? (
+          <ConfirmDialog
+            title="Re-open Bug"
+            bodyContent="Do you want to re-open your bug?"
+            buttonText="Re-open Bug"
+            buttonType={{
+              type: 'normal',
+              text: 'Re-open Bug',
+              icon: RedoIcon,
+            }}
+            actionFunction={handleBugReopen}
+          ></ConfirmDialog>
+        ) : (
+          <ConfirmDialog
+            title="Close Bug"
+            bodyContent="Do you want to close out your bug?"
+            buttonText="Close Bug"
+            buttonType={{
+              type: 'normal',
+              text: 'Close Bug',
+              icon: DoneOutlineIcon,
+            }}
+            actionFunction={handleBugClose}
+          ></ConfirmDialog>
+        )}
+      </Fragment>
     );
   };
   return (
@@ -86,10 +130,10 @@ const BugPage = () => {
           <Typography>Created By: {createdBy.username}</Typography>
           <Typography>Created On {bug && formatDateTime(createdAt)}</Typography>
           <Typography>Priority: {priority}</Typography>
-          <Typography>Status: {isResolved ? 'Open' : 'Closed'}</Typography>
+          <Typography>Status: {isResolved ? 'Closed' : 'Open'}</Typography>
         </div>
-        {adminButtons()}
       </Paper>
+      {adminButtons()}
     </div>
   );
 };

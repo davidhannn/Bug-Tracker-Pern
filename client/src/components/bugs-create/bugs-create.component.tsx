@@ -130,9 +130,12 @@ export default function BugsCreate({ projectId }: { projectId: string }) {
             />
             <TextField
               id="outlined-basic"
+              multiline={true}
+              rows={5}
               label="Description"
               variant="outlined"
               name="description"
+              style={{ height: 10 }}
               value={description}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setDescription(e.target.value)

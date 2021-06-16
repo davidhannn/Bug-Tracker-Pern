@@ -1,4 +1,5 @@
 import { Request, response, Response } from 'express';
+import { resolve } from 'url';
 import Bug from '../entity/Bug';
 import Project from '../entity/Project';
 
@@ -51,5 +52,26 @@ export const deleteBug = async (req: Request, res: Response) => {
   }
 
   await targetBug.remove();
+  return res.status(204).end();
+};
+
+export const closeBug = async (req: Request, res: Response) => {
+  const { projectId, bugId } = req.params;
+
+  const targetBug = await Bug.findOneOrFail({ id: bugId });
+
+  targetBug.isResolved = true;
+  await targetBug.save();
+
+  return res.status(204).end();
+};
+
+export const reopenBug = async (req: Request, res: Response) => {
+  const { projectId, bugId } = req.params;
+
+  const targetBug = await Bug.findOneOrFail({ id: bugId });
+
+  targetBug.isResolved = false;
+  await targetBug.save();
   return res.status(204).end();
 };

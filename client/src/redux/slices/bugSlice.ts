@@ -54,6 +54,22 @@ const bugSlice = createSlice({
         action.payload.projectId
       ].filter((bug) => bug.id !== action.payload.bugId);
     },
+    updateBugStatus: (
+      state,
+      action: PayloadAction<{
+        isResolved: Boolean;
+        projectId: string;
+        bugId: string;
+      }>
+    ) => {
+      state.bugs[action.payload.projectId] = state.bugs[
+        action.payload.projectId
+      ].map((bug) =>
+        bug.id === action.payload.bugId
+          ? { ...bug, ...action.payload.isResolved }
+          : bug
+      );
+    },
     setFetchBug: (state) => {
       state.fetchStatus = true;
       state.fetchError = null;
@@ -65,8 +81,14 @@ const bugSlice = createSlice({
   },
 });
 
-export const { setBugs, addBug, setSubmitBug, setFetchBug, removeBug } =
-  bugSlice.actions;
+export const {
+  setBugs,
+  addBug,
+  setSubmitBug,
+  setFetchBug,
+  removeBug,
+  updateBugStatus,
+} = bugSlice.actions;
 
 export const fetchBugs = (projectId: string): AppThunk => {
   return async (dispatch) => {
@@ -96,6 +118,29 @@ export const deleteBug = (projectId: string, bugId: string): AppThunk => {
   return async (dispatch) => {
     await bugService.deleteBug(projectId, bugId);
     dispatch(removeBug({ projectId, bugId }));
+  };
+};
+
+export const resolveBug = (
+  projectId: string,
+  bugId: string,
+  action: 'close' | 'reopen'
+): AppThunk => {
+  return async (dispatch) => {
+    try {
+      let updatedBug;
+      if (action === 'close') {
+        updatedBug = await bugService.closeBug(projectId, bugId);
+      } else {
+        updatedBug = bugService.reopenBug(projectId, bugId);
+      }
+
+      const { isResolved } = updatedBug;
+
+      dispatch(updateBugStatus({ isResolved, bugId, projectId }));
+    } catch (err) {
+      console.log(err);
+    }
   };
 };
 
