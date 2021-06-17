@@ -21,7 +21,9 @@ const App = () => {
 
   return (
     <div className={classes.root}>
-      <Routes />
+      <div className={classes.body}>
+        <Routes />
+      </div>
     </div>
   );
 };

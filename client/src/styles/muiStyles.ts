@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 
 export const navStyles = makeStyles((theme) => ({
   root: {
@@ -30,13 +30,9 @@ export const authPageStyles = makeStyles((theme) => ({
   },
   inputField: {
     padding: '1.5rem',
-    width: '450px',
-    margin: 'auto',
   },
   submitButton: {
-    padding: '1.5rem 1.5rem',
-    width: '450px',
-    margin: 'auto',
+    padding: '1.5rem',
     backgroundColor: 'lightblue',
   },
 }));
@@ -66,6 +62,10 @@ export const useHeaderStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: '',
+  },
+  title: {
+    display: 'flex',
+    flexDirection: 'row',
   },
 }));
 
@@ -157,32 +157,58 @@ export const useFormStyles = makeStyles((theme) => ({
   },
 }));
 
-export const useHomePageStyles = makeStyles((theme) => ({
+export const useHomePageStyles = makeStyles((theme: Theme) => ({
   root: {
-    margin: '0 auto',
-    width: '80%',
+    padding: '1rem 0',
+    [theme.breakpoints.down('xs')]: {
+      padding: '0.2em 0.2em',
+    },
   },
   body: {
-    width: '100%',
-    padding: '2rem',
     marginTop: '2rem',
+    padding: '1.5rem',
+  },
+  projectsListTable: {},
+  itemWrapper: {
+    padding: '0.4em 0.3em',
+    marginTop: '0.5em',
+  },
+  flexedWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: '0.3em',
+  },
+  iconWrapper: {
+    display: 'flex',
+    width: '100px',
+    justifyContent: 'space-between',
+  },
+  iconText: {
+    verticalAlign: 'middle',
+    display: 'inline-flex',
   },
 }));
 
 export const useBodyStyles = makeStyles((theme) => ({
   root: {
-    // backgroundColor: '#cce4f6',
-    // height: '100vh',
+    backgroundColor: '#e6f2fb',
+    height: '100vh',
     // width: '100vw',
+  },
+  body: {
+    margin: '0 auto',
+    maxWidth: '1200px',
   },
 }));
 
 export const useBugPageStyles = makeStyles((theme) => ({
-  root: {
-    margin: '0 auto',
-    width: '80%',
-    height: '100vh',
-  },
+  // root: {
+  //   margin: '0 auto',
+  //   width: '80%',
+  //   height: '100vh',
+  // },
   body: {
     display: 'flex',
     flexDirection: 'row',
@@ -195,4 +221,5 @@ export const useBugPageStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     marginTop: '2rem',
   },
+  details: {},
 }));

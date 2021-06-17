@@ -7,6 +7,7 @@ import {
   createStyles,
   makeStyles,
 } from '@material-ui/core/styles';
+
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -18,37 +19,10 @@ import Paper from '@material-ui/core/Paper';
 import { formatDateTime } from '../../utils/helper';
 import { selectBugsState } from '../../redux/slices/bugSlice';
 import { priorityStyles, statusStyles } from '../../styles/buttonStyles';
+import { useTableStyles } from '../../styles/muiStyles';
 
-const StyledTableCell = withStyles((theme: Theme) =>
-  createStyles({
-    head: {
-      backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white,
-    },
-    body: {
-      fontSize: 14,
-    },
-  })
-)(TableCell);
-
-const StyledTableRow = withStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.action.hover,
-      },
-    },
-  })
-)(TableRow);
-
-const useStyles = makeStyles({
-  table: {
-    minWidth: 700,
-  },
-});
-
-export default function BugsTable({ projectId }: { projectId: string }) {
-  const classes = useStyles();
+const BugsTable = ({ projectId }: { projectId: string }) => {
+  const classes = useTableStyles();
   const history = useHistory();
   const { bugs } = useSelector(selectBugsState);
 
@@ -59,19 +33,19 @@ export default function BugsTable({ projectId }: { projectId: string }) {
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Title</StyledTableCell>
-            <StyledTableCell align="center">Priority</StyledTableCell>
-            <StyledTableCell align="center">Status</StyledTableCell>
-            <StyledTableCell align="right">Added</StyledTableCell>
-            {/* <StyledTableCell align="right">Updated</StyledTableCell> */}
-            <StyledTableCell align="right">Created By</StyledTableCell>
+            <TableCell>Title</TableCell>
+            <TableCell align="center">Priority</TableCell>
+            <TableCell align="center">Status</TableCell>
+            <TableCell align="right">Added</TableCell>
+            {/* <TableCell align="right">Updated</TableCell> */}
+            <TableCell align="right">Created By</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {singleBugs &&
             singleBugs.map((bug) => (
-              <StyledTableRow key={bug.id}>
-                <StyledTableCell
+              <TableRow key={bug.id}>
+                <TableCell
                   component="th"
                   scope="row"
                   onClick={() =>
@@ -79,8 +53,8 @@ export default function BugsTable({ projectId }: { projectId: string }) {
                   }
                 >
                   {bug.name}
-                </StyledTableCell>
-                <StyledTableCell align="center">
+                </TableCell>
+                <TableCell align="center">
                   <div
                     style={{
                       ...priorityStyles(bug.priority),
@@ -90,8 +64,8 @@ export default function BugsTable({ projectId }: { projectId: string }) {
                   >
                     {bug.priority}
                   </div>
-                </StyledTableCell>
-                <StyledTableCell align="center">
+                </TableCell>
+                <TableCell align="center">
                   <div
                     style={{
                       ...statusStyles(bug.isResolved),
@@ -100,18 +74,18 @@ export default function BugsTable({ projectId }: { projectId: string }) {
                   >
                     {bug.isResolved ? 'Closed' : 'Open'}
                   </div>
-                </StyledTableCell>
-                <StyledTableCell align="right">
+                </TableCell>
+                <TableCell align="right">
                   {formatDateTime(bug.createdAt)}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {bug.createdBy.username}
-                </StyledTableCell>
-                {/* <StyledTableCell align="right">{bug.protein}</StyledTableCell> */}
-              </StyledTableRow>
+                </TableCell>
+                <TableCell align="right">{bug.createdBy.username}</TableCell>
+                {/* <TableCell align="right">{bug.protein}</TableCell> */}
+              </TableRow>
             ))}
         </TableBody>
       </Table>
     </TableContainer>
   );
-}
+};
+
+export default BugsTable;

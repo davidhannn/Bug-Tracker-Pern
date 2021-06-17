@@ -2,6 +2,7 @@ import React from 'react';
 import {
   createStyles,
   Theme,
+  useTheme,
   withStyles,
   WithStyles,
 } from '@material-ui/core/styles';
@@ -15,6 +16,8 @@ import {
   DialogTitle,
   Typography,
   Fab,
+  Paper,
+  useMediaQuery,
 } from '@material-ui/core';
 
 import { useDialogStyles } from '../../styles/dialogStyles';
@@ -27,6 +30,8 @@ const FormDialog: React.FC<{
 }> = ({ title, buttonType, children }) => {
   const [open, setOpen] = React.useState(false);
   const classes = useDialogStyles();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
   const handleClickOpen = () => {
     setOpen(true);

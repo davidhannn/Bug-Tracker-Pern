@@ -141,6 +141,7 @@ const ProjectForm: React.FC<ProjectFormType> = ({
             label="Edit Project Name"
             variant="outlined"
             type="text"
+            fullWidth
             className={classes.inputField}
             defaultValue={currentName}
             value={projectName}

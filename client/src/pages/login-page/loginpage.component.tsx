@@ -37,18 +37,14 @@ const LoginPage = () => {
     <div>
       <Paper className={classes.root} elevation={2}>
         <Typography>Login Page</Typography>
-        <form
-          className={classes.root}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
+        <form noValidate autoComplete="off" onSubmit={handleSubmit}>
           <TextField
             id="outlined-basic"
             label="Username"
             variant="outlined"
             type="text"
             name="username"
+            fullWidth
             className={classes.inputField}
             value={username}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -61,13 +57,14 @@ const LoginPage = () => {
             variant="outlined"
             type="password"
             name="password"
+            fullWidth
             className={classes.inputField}
             value={password}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setPassword(e.target.value)
             }
           />
-          <Button type="submit" className={classes.submitButton}>
+          <Button type="submit" fullWidth className={classes.submitButton}>
             Login!
           </Button>
           <Typography>

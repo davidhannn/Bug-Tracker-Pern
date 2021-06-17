@@ -14,35 +14,42 @@ import Navbar from './components/navbar/navbar.component';
 import Axios from 'axios';
 import backendUrl from './backendUrl';
 
+import { useTheme } from '@material-ui/core/styles';
+import { Container, useMediaQuery } from '@material-ui/core';
+
 const Routes = () => {
   const { user } = useSelector(selectAuthState);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
   useEffect(() => {
     console.log(user);
   }, []);
 
   return (
-    <BrowserRouter>
-      {user ? <Navbar /> : null}
-      <Switch>
-        <Route exact path="/">
-          {user ? <HomePage /> : <Redirect to="/login" />}
-        </Route>
-        <Route exact path="/register" component={RegisterPage} />
-        <Route exact path="/login">
-          {!user ? <LoginPage /> : <Redirect to="/" />}
-        </Route>
-        <Route exact path="/createProject">
-          {user ? <CreateProjectPage /> : <Redirect to="/" />}
-        </Route>
-        <Route exact path="/projects/:projectId">
-          {user ? <ProjectPage /> : <Redirect to="/" />}
-        </Route>
-        <Route exact path="/projects/:projectId/bugs/:bugId">
-          {user ? <BugPage /> : <Redirect to="/" />}
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <Container disableGutters={isMobile}>
+      <BrowserRouter>
+        {user ? <Navbar /> : null}
+        <Switch>
+          <Route exact path="/">
+            {user ? <HomePage /> : <Redirect to="/login" />}
+          </Route>
+          <Route exact path="/register" component={RegisterPage} />
+          <Route exact path="/login">
+            {!user ? <LoginPage /> : <Redirect to="/" />}
+          </Route>
+          <Route exact path="/createProject">
+            {user ? <CreateProjectPage /> : <Redirect to="/" />}
+          </Route>
+          <Route exact path="/projects/:projectId">
+            {user ? <ProjectPage /> : <Redirect to="/" />}
+          </Route>
+          <Route exact path="/projects/:projectId/bugs/:bugId">
+            {user ? <BugPage /> : <Redirect to="/" />}
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    </Container>
   );
 };
 

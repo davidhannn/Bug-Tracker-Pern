@@ -6,7 +6,7 @@ export const useDialogStyles = makeStyles(
       padding: '1.5rem',
       marginBottom: '1rem',
       overflow: 'hidden',
-      width: '50%',
+      width: '70%',
       [theme.breakpoints.down('xs')]: {
         padding: 0,
       },

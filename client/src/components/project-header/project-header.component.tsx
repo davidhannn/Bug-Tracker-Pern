@@ -65,7 +65,7 @@ const ProjectHeader: React.FC<{ currentProject: ProjectState }> = ({
   return (
     <div className={classes.root}>
       <Paper className={classes.headerPaper}>
-        <div>
+        <div className={classes.title}>
           <Typography style={{ fontSize: '2rem', fontWeight: 'bold' }}>
             {name}
           </Typography>

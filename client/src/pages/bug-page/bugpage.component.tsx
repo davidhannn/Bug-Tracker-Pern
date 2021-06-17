@@ -121,13 +121,13 @@ const BugPage = () => {
     );
   };
   return (
-    <div className={classes.root}>
+    <Fragment>
       <Paper className={classes.body}>
         <div>
           <h3>Description</h3>
           <Typography>{description}</Typography>
         </div>
-        <div>
+        <div className={classes.details}>
           <h3>Bug Details</h3>
           <Typography>Created By: {createdBy.username}</Typography>
           <Typography>Created On {bug && formatDateTime(createdAt)}</Typography>
@@ -158,7 +158,7 @@ const BugPage = () => {
         </div>
       </Paper>
       <div className={classes.buttons}>{adminButtons()}</div>
-    </div>
+    </Fragment>
   );
 };
 
