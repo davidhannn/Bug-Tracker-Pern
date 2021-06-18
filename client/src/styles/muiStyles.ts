@@ -68,6 +68,9 @@ export const useHeaderStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: '',
   },
+  buttonWrapper: {
+    marginRight: '1rem',
+  },
   title: {
     display: 'flex',
     flexDirection: 'row',
@@ -84,6 +87,9 @@ export const useHeaderStyles = makeStyles((theme) => ({
 
 export const useTableStyles = makeStyles(
   (theme) => ({
+    root: {
+      marginTop: '1rem',
+    },
     table: {
       '& thead th': {
         fontWeight: '600',
@@ -127,15 +133,6 @@ export const useTableStyles = makeStyles(
 );
 
 export const useFormStyles = makeStyles((theme) => ({
-  // formControlLabels: {
-  //   display: 'flex',
-  //   justifyContent: 'space-between',
-  //   width: '80%',
-  //   [theme.breakpoints.down('xs')]: {
-  //     flexDirection: 'column',
-  //     width: 'auto',
-  //   },
-  // },
   inputField: {
     marginBottom: '1rem',
   },
@@ -235,6 +232,9 @@ export const useBugPageStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     marginTop: '2rem',
+  },
+  buttonWrapper: {
+    marginRight: '1rem',
   },
   details: {},
 }));

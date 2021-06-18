@@ -83,17 +83,19 @@ const BugPage = () => {
 
     return (
       <Fragment>
-        <ConfirmDialog
-          title="Delete Bug"
-          bodyContent="Do you want to permanently delete your bug?"
-          buttonText="Delete Bug"
-          buttonType={{
-            type: 'normal',
-            text: 'Delete Bug',
-            icon: DeleteOutlineIcon,
-          }}
-          actionFunction={handleBugDelete}
-        ></ConfirmDialog>
+        <div className={classes.buttonWrapper}>
+          <ConfirmDialog
+            title="Delete Bug"
+            bodyContent="Do you want to permanently delete your bug?"
+            buttonText="Delete Bug"
+            buttonType={{
+              type: 'normal',
+              text: 'Delete Bug',
+              icon: DeleteOutlineIcon,
+            }}
+            actionFunction={handleBugDelete}
+          />
+        </div>
         {isResolved ? (
           <ConfirmDialog
             title="Re-open Bug"

@@ -33,17 +33,19 @@ const ProjectHeader: React.FC<{ currentProject: ProjectState }> = ({
 
     return (
       <>
-        <ConfirmDialog
-          title="Confirm Delete Project"
-          bodyContent="Do you want to permanently delete your project?"
-          buttonText="Delete Project"
-          buttonType={{
-            type: 'normal',
-            text: 'Delete Project',
-            icon: DeleteOutlineIcon,
-          }}
-          actionFunction={handleProjectDelete}
-        />
+        <div className={classes.buttonWrapper}>
+          <ConfirmDialog
+            title="Confirm Delete Project"
+            bodyContent="Do you want to permanently delete your project?"
+            buttonText="Delete Project"
+            buttonType={{
+              type: 'normal',
+              text: 'Delete Project',
+              icon: DeleteOutlineIcon,
+            }}
+            actionFunction={handleProjectDelete}
+          />
+        </div>
         <FormDialog
           title="Add Project Members"
           buttonType={{

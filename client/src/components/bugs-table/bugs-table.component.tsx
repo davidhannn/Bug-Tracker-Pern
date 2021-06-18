@@ -29,62 +29,65 @@ const BugsTable = ({ projectId }: { projectId: string }) => {
   const singleBugs = bugs[projectId];
   console.log(singleBugs);
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Title</TableCell>
-            <TableCell align="center">Priority</TableCell>
-            <TableCell align="center">Status</TableCell>
-            <TableCell align="right">Added</TableCell>
-            {/* <TableCell align="right">Updated</TableCell> */}
-            <TableCell align="right">Created By</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {singleBugs &&
-            singleBugs.map((bug) => (
-              <TableRow key={bug.id}>
-                <TableCell
-                  component="th"
-                  scope="row"
-                  onClick={() =>
-                    history.push(`/projects/${projectId}/bugs/${bug.id}`)
-                  }
-                >
-                  {bug.name}
-                </TableCell>
-                <TableCell align="center">
-                  <div
-                    style={{
-                      ...priorityStyles(bug.priority),
-                      textTransform: 'capitalize',
-                      margin: '0 auto',
-                    }}
+    <div className={classes.root}>
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Title</TableCell>
+              <TableCell align="center">Priority</TableCell>
+              <TableCell align="center">Status</TableCell>
+              <TableCell align="right">Added</TableCell>
+              {/* <TableCell align="right">Updated</TableCell> */}
+              <TableCell align="right">Created By</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {singleBugs &&
+              singleBugs.map((bug) => (
+                <TableRow key={bug.id}>
+                  <TableCell
+                    component="th"
+                    scope="row"
+                    className={classes.clickableCell}
+                    onClick={() =>
+                      history.push(`/projects/${projectId}/bugs/${bug.id}`)
+                    }
                   >
-                    {bug.priority}
-                  </div>
-                </TableCell>
-                <TableCell align="center">
-                  <div
-                    style={{
-                      ...statusStyles(bug.isResolved),
-                      margin: '0 auto',
-                    }}
-                  >
-                    {bug.isResolved ? 'Closed' : 'Open'}
-                  </div>
-                </TableCell>
-                <TableCell align="right">
-                  {formatDateTime(bug.createdAt)}
-                </TableCell>
-                <TableCell align="right">{bug.createdBy.username}</TableCell>
-                {/* <TableCell align="right">{bug.protein}</TableCell> */}
-              </TableRow>
-            ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+                    {bug.name}
+                  </TableCell>
+                  <TableCell align="center">
+                    <div
+                      style={{
+                        ...priorityStyles(bug.priority),
+                        textTransform: 'capitalize',
+                        margin: '0 auto',
+                      }}
+                    >
+                      {bug.priority}
+                    </div>
+                  </TableCell>
+                  <TableCell align="center">
+                    <div
+                      style={{
+                        ...statusStyles(bug.isResolved),
+                        margin: '0 auto',
+                      }}
+                    >
+                      {bug.isResolved ? 'Closed' : 'Open'}
+                    </div>
+                  </TableCell>
+                  <TableCell align="right">
+                    {formatDateTime(bug.createdAt)}
+                  </TableCell>
+                  <TableCell align="right">{bug.createdBy.username}</TableCell>
+                  {/* <TableCell align="right">{bug.protein}</TableCell> */}
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
   );
 };
 
