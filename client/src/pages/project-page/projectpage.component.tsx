@@ -18,6 +18,9 @@ import {
 import BugForm from '../../components/bug-form/bug-form.component';
 import Spinner from '../../components/spinner/spinner.component';
 import FormDialog from '../../components/form-dialog/form-dialog.component';
+import BugsTableMobile from '../../components/bugs-table-mobile/bugs-table-mobile.component';
+
+import { useTheme, useMediaQuery } from '@material-ui/core';
 interface ParamTypes {
   projectId: string;
 }
@@ -25,6 +28,8 @@ interface ParamTypes {
 const ProjectPage = () => {
   const { projectId } = useParams<ParamTypes>();
   const dispatch = useDispatch();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
   const currentProject = useSelector((state: RootState) =>
     selectProjectById(state, projectId)
   );
@@ -37,8 +42,19 @@ const ProjectPage = () => {
 
   useEffect(() => {
     dispatch(fetchBugs(projectId));
-    console.log(currentProject);
   }, []);
+
+  const bugDisplay = () => {
+    if (fetchStatus === true) {
+      return <Spinner />;
+    } else {
+      return !isMobile ? (
+        <BugsTable projectId={projectId} />
+      ) : (
+        <BugsTableMobile bugs={bugs} />
+      );
+    }
+  };
 
   return (
     <Fragment>
@@ -51,8 +67,7 @@ const ProjectPage = () => {
       >
         <BugForm editMode="add" projectId={projectId} />
       </FormDialog>
-      {/* <BugsCreate projectId={projectId} /> */}
-      {fetchStatus === true ? <Spinner /> : <BugsTable projectId={projectId} />}
+      {bugDisplay()}
     </Fragment>
   );
 };

@@ -24,11 +24,11 @@ export default class User extends Entity {
   }
 
   // @Index improves performance when querying database
-  @Index()
-  @IsEmail(undefined, { message: 'Must be a valid email address' })
-  @Length(1, 255, { message: 'Email is empty' })
-  @Column({ unique: true })
-  email: string;
+  // @Index()
+  // @IsEmail(undefined, { message: 'Must be a valid email address' })
+  // @Length(1, 255, { message: 'Email is empty' })
+  // @Column({ unique: true })
+  // email: string;
 
   @Index()
   @Length(3, 255, { message: 'Must be at least 3 characters long' })

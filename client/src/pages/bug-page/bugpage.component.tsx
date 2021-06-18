@@ -3,13 +3,16 @@ import { RootState } from '../../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 
-import { Paper, Typography } from '@material-ui/core';
+import { Paper, Typography, useMediaQuery, useTheme } from '@material-ui/core';
 import { selectAuthState } from '../../redux/slices/authSlice';
 import {
   selectBugById,
   deleteBug,
   resolveBug,
 } from '../../redux/slices/bugSlice';
+
+import BugDetailsMobile from '../../components/bug-details-mobile/bug-details-mobile.component';
+import BugDetails from '../../components/bug-details/bug-details.component';
 import { formatDateTime } from '../../utils/helper';
 
 import { useBugPageStyles } from '../../styles/muiStyles';
@@ -35,6 +38,8 @@ const BugPage = () => {
   const bug = useSelector((state: RootState) =>
     selectBugById(state, bugId, projectId)
   );
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
   const classes = useBugPageStyles();
 
   if (!bug) {
@@ -61,18 +66,15 @@ const BugPage = () => {
   const isAdmin = user?.id === bug?.createdBy.id;
 
   const handleBugDelete = () => {
-    console.log('testing delete');
     dispatch(deleteBug(projectId, bugId));
     history.push(`/projects/${projectId}`);
   };
 
   const handleBugReopen = () => {
-    console.log('testing bug reopen');
     dispatch(resolveBug(projectId, bugId, 'reopen'));
   };
 
   const handleBugClose = () => {
-    console.log('testing bug close');
     dispatch(resolveBug(projectId, bugId, 'close'));
   };
 
@@ -120,43 +122,10 @@ const BugPage = () => {
       </Fragment>
     );
   };
+
   return (
     <Fragment>
-      <Paper className={classes.body}>
-        <div>
-          <h3>Description</h3>
-          <Typography>{description}</Typography>
-        </div>
-        <div className={classes.details}>
-          <h3>Bug Details</h3>
-          <Typography>Created By: {createdBy.username}</Typography>
-          <Typography>Created On {bug && formatDateTime(createdAt)}</Typography>
-          <Typography>
-            Priority:
-            <div
-              style={{
-                ...priorityStyles(bug.priority),
-                textTransform: 'capitalize',
-                display: 'inline',
-              }}
-            >
-              {priority}
-            </div>
-          </Typography>
-
-          <Typography>
-            Status:
-            <div
-              style={{
-                ...statusStyles(bug.isResolved),
-                display: 'inline',
-              }}
-            >
-              {bug.isResolved ? 'Closed' : 'Open'}
-            </div>
-          </Typography>
-        </div>
-      </Paper>
+      {!isMobile ? <BugDetails bug={bug} /> : <BugDetailsMobile bug={bug} />}
       <div className={classes.buttons}>{adminButtons()}</div>
     </Fragment>
   );

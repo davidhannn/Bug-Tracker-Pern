@@ -11,6 +11,13 @@ const login = async (credentials: Credentials) => {
   return response.data;
 };
 
+const register = async (credentials: Credentials) => {
+  const response = await Axios.post(`${backendUrl}/register`, credentials, {
+    withCredentials: true,
+  });
+  return response.data;
+};
+
 const verify = async () => {
   const response = await Axios.get(`${backendUrl}/verify`, {
     withCredentials: true,
@@ -21,6 +28,6 @@ const verify = async () => {
 const logout = async () => {
   const response = await Axios.get(`${backendUrl}/logout`);
 };
-const authService = { login, logout, verify };
+const authService = { login, logout, verify, register };
 
 export default authService;

@@ -60,12 +60,7 @@ const HomePage = () => {
         >
           <ProjectForm editMode="project" />
         </FormDialog>
-        {/* 
-        {fetchStatus === 'loading' ? (
-          <Spinner />
-        ) : (
-          <ProjectsTable projects={projects} />
-        )} */}
+
         {projectDisplay()}
       </Paper>
     </div>

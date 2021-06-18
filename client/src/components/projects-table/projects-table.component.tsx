@@ -31,8 +31,6 @@ const ProjectsTable: React.FC<{ projects: ProjectState[] }> = ({
   const history = useHistory();
   // const { projects } = useSelector(selectProjectsState);
 
-  const { StyledTableCell, StyledTableRow } = classes;
-
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
@@ -48,7 +46,7 @@ const ProjectsTable: React.FC<{ projects: ProjectState[] }> = ({
         <TableBody>
           {projects &&
             projects.map((project, i) => (
-              <TableRow key={project.id} className={StyledTableRow}>
+              <TableRow key={project.id}>
                 <TableCell
                   component="th"
                   scope="row"
@@ -58,7 +56,7 @@ const ProjectsTable: React.FC<{ projects: ProjectState[] }> = ({
                 </TableCell>
                 <TableCell align="right">
                   <BugReportIcon />
-                  {/* {project && project.bugs.length} */}
+                  {project && project.bugs.length}
                 </TableCell>
                 <TableCell align="right">
                   <PersonIcon />

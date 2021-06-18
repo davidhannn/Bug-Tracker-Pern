@@ -13,15 +13,15 @@ const mapErrors = (errors: Object[]) => {
 };
 
 export const register = async (req: Request, res: Response) => {
-  const { email, username, password } = req.body;
+  const { username, password } = req.body;
 
   try {
     // Validate data
     let errors: any = {};
-    const emailUser = await User.findOne({ email });
+    // const emailUser = await User.findOne({ email });
     const usernameUser = await User.findOne({ username });
 
-    if (emailUser) errors.email = 'Email is already taken';
+    // if (emailUser) errors.email = 'Email is already taken';
     if (usernameUser) errors.username = 'Username is already taken';
 
     if (Object.keys(errors).length > 0) {
@@ -29,7 +29,7 @@ export const register = async (req: Request, res: Response) => {
     }
 
     // Create the user
-    const user = new User({ email, username, password });
+    const user = new User({ username, password });
 
     errors = await validate(user);
 

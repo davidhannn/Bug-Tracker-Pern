@@ -34,9 +34,11 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
-      <Paper className={classes.root} elevation={2}>
-        <Typography>Login Page</Typography>
+    <div className={classes.root}>
+      <Paper className={classes.body} elevation={2}>
+        <Typography variant="h4" style={{ marginBottom: '2rem' }}>
+          Login Page
+        </Typography>
         <form noValidate autoComplete="off" onSubmit={handleSubmit}>
           <TextField
             id="outlined-basic"
@@ -64,10 +66,16 @@ const LoginPage = () => {
               setPassword(e.target.value)
             }
           />
-          <Button type="submit" fullWidth className={classes.submitButton}>
+          <Button
+            type="submit"
+            size="large"
+            color="primary"
+            variant="contained"
+            fullWidth
+          >
             Login!
           </Button>
-          <Typography>
+          <Typography style={{ marginTop: '1rem' }}>
             Don't have an account? <a href="/register">Register Here</a>
           </Typography>
         </form>

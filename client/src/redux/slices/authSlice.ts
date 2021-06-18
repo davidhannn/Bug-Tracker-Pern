@@ -43,6 +43,23 @@ export const login = (credentials: CredentialsPayload): AppThunk => {
   };
 };
 
+export const registerUser = (credentials: CredentialsPayload): AppThunk => {
+  return async (dispatch) => {
+    try {
+      const newUser = await authService.register(credentials);
+      dispatch(setUser(newUser));
+
+      const loggedUser = await authService.verify();
+      if (loggedUser) {
+        dispatch(setUser(loggedUser));
+      }
+      dispatch(fetchProjects());
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
 export const autoLogin = (): AppThunk => {
   return async (dispatch) => {
     try {

@@ -14,10 +14,16 @@ export const navStyles = makeStyles((theme) => ({
 
 export const authPageStyles = makeStyles((theme) => ({
   root: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  body: {
     padding: '1.5em 3em',
+    marginTop: '5rem',
+    height: '500px',
     width: '500px',
     margin: 'auto',
-    marginTop: '16vH',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -29,11 +35,10 @@ export const authPageStyles = makeStyles((theme) => ({
     },
   },
   inputField: {
-    padding: '1.5rem',
+    marginBottom: '2rem',
   },
   submitButton: {
-    padding: '1.5rem',
-    backgroundColor: 'lightblue',
+    padding: '1rem',
   },
 }));
 
@@ -66,6 +71,14 @@ export const useHeaderStyles = makeStyles((theme) => ({
   title: {
     display: 'flex',
     flexDirection: 'row',
+  },
+  mobileWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: '1rem',
+  },
+  mobileDescription: {
+    marginBottom: '0.5rem',
   },
 }));
 
@@ -194,6 +207,7 @@ export const useHomePageStyles = makeStyles((theme: Theme) => ({
 export const useBodyStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: '#e6f2fb',
+    overflowY: 'auto',
     height: '100vh',
     // width: '100vw',
   },
@@ -209,6 +223,7 @@ export const useBugPageStyles = makeStyles((theme) => ({
   //   width: '80%',
   //   height: '100vh',
   // },
+  root: {},
   body: {
     display: 'flex',
     flexDirection: 'row',

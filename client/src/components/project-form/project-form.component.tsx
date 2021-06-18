@@ -83,9 +83,7 @@ const ProjectForm: React.FC<ProjectFormType> = ({
     dispatch(editProjectName(projectId as string, projectName));
   };
 
-  const handleAddMembers = () => {
-    console.log('ttesting');
-  };
+  const handleAddMembers = () => {};
 
   return (
     <form

@@ -22,9 +22,7 @@ const Routes = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
-  useEffect(() => {
-    console.log(user);
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <Container disableGutters={isMobile}>
