@@ -58,3 +58,11 @@ export interface BugPayload {
   description: string;
   priority: BugPriority;
 }
+
+export type ProjectSortValues =
+  | 'newest'
+  | 'oldest'
+  | 'most-bugs'
+  | 'least-bugs'
+  | 'most-members'
+  | 'least-members';

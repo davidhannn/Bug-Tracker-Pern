@@ -1,3 +1,4 @@
+import { ProjectSortValues } from './../types';
 import { AppThunk } from './../store';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
@@ -11,6 +12,7 @@ interface InitialProjectsState {
   fetchError: string | null;
   submitLoading: boolean;
   submitError: string | null;
+  sortBy: ProjectSortValues;
 }
 
 const initialState: InitialProjectsState = {
@@ -19,6 +21,7 @@ const initialState: InitialProjectsState = {
   fetchError: null,
   submitLoading: false,
   submitError: null,
+  sortBy: 'newest',
 };
 
 const projectsSlice = createSlice({
@@ -58,6 +61,9 @@ const projectsSlice = createSlice({
       state.submitLoading = true;
       state.submitError = null;
     },
+    sortProjectsBy: (state, action: PayloadAction<ProjectSortValues>) => {
+      state.sortBy = action.payload;
+    },
   },
 });
 
@@ -68,6 +74,7 @@ export const {
   removeProject,
   updateProjectName,
   setSubmitProjectLoading,
+  sortProjectsBy,
 } = projectsSlice.actions;
 
 export const fetchProjects = (): AppThunk => {

@@ -85,6 +85,43 @@ export const useHeaderStyles = makeStyles((theme) => ({
   },
 }));
 
+export const useSearchSortStyles = makeStyles(
+  (theme) => ({
+    inputWrapper: {
+      display: 'flex',
+      minWidth: '100%',
+      justifyContent: 'space-between',
+      marginBottom: '1.5em',
+      marginTop: '1rem',
+      [theme.breakpoints.down('xs')]: {
+        marginBottom: '0.7em',
+      },
+    },
+    searchBar: {
+      width: '70%',
+      [theme.breakpoints.down('xs')]: {
+        width: '55%',
+      },
+    },
+    sortBar: {
+      width: '25%',
+      [theme.breakpoints.down('xs')]: {
+        width: '42%',
+      },
+    },
+    flexWrapper: {
+      display: 'flex',
+      minWidth: '100%',
+      justifyContent: 'space-between',
+      [theme.breakpoints.down('xs')]: {
+        justifyContent: 'flex-start',
+        marginLeft: '0.2em',
+      },
+    },
+  }),
+  { index: 1 }
+);
+
 export const useTableStyles = makeStyles(
   (theme) => ({
     root: {
