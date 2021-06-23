@@ -2,19 +2,17 @@ import 'reflect-metadata';
 import { createConnection } from 'typeorm';
 import express from 'express';
 import cors from 'cors';
-
+import path from 'path';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
+import { Request, Response } from 'express';
 
 dotenv.config();
 
 import trim from './middleware/trim';
 
 import authRoutes from './routes/auth';
-// import postRoutes from './routes/posts';
-// import subRoutes from './routes/subs';
-// import miscRoutes from './routes/misc';
 import projectRoutes from './routes/projects';
 import userRoutes from './routes/user';
 import bugRoutes from './routes/bugs';
@@ -33,6 +31,11 @@ app.use(
   })
 );
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'client/build')));
+}
+
+console.log(__dirname);
 app.use(express.static('public'));
 
 app.use('/', authRoutes);
@@ -49,6 +52,10 @@ app.listen(PORT, async () => {
   } catch (err) {
     console.log(err);
   }
+});
+
+app.get('*', (_, res: Response) => {
+  res.sendFile(path.join(__dirname, 'client/build/index.html'));
 });
 // createConnection()
 //   .then(async (connection) => {
