@@ -9,6 +9,9 @@ module.exports = {
   database: process.env.DB_DATABASE,
   synchronize: true,
   logging: process.env.NODE_ENV === 'development',
+  url:
+    process.env.DATABASE_URL ||
+    `${type}://${username}:${password}@${host}:${port}/${database}`,
   entities: [rootDir + 'src/entity/**/*{.ts,.js}', './entity/**/*{.ts,.js}'],
   migrations: [
     rootDir + 'src/migration/**/*{.ts,.js}',
