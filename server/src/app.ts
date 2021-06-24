@@ -32,12 +32,11 @@ app.use(
   })
 );
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client/build')));
-}
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__dirname, 'client/build')));
+// }
 
-console.log(__dirname);
-app.use(express.static('public'));
+// app.use(express.static('public'));
 
 app.use('/', authRoutes);
 app.use('/projects', projectRoutes);
@@ -55,8 +54,8 @@ app.use('/projects', bugRoutes);
 //   }
 // });
 
-app.get('*', (_, res: Response) => {
-  res.sendFile(path.join(__dirname, 'client/build/index.html'));
-});
+// app.get('*', (_, res: Response) => {
+//   res.sendFile(path.join(__dirname, 'client/build/index.html'));
+// });
 
 export default app;
