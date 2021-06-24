@@ -1,4 +1,4 @@
-// const type = process.env.DB_TYPE || 'postgres';
+const type = process.env.DB_TYPE || 'postgres';
 const username = process.env.DB_USERNAME || 'postgres';
 const password = process.env.DB_PASSWORD || '123456';
 const host = process.env.DB_HOST || 'localhost';
