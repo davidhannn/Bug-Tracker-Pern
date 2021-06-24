@@ -43,16 +43,16 @@ app.use('/projects', projectRoutes);
 app.use('/users', userRoutes);
 app.use('/projects', bugRoutes);
 
-app.listen(PORT, async () => {
-  console.log(`server running at http://localhost:${5000}`);
+// app.listen(PORT, async () => {
+//   console.log(`server running at http://localhost:${5000}`);
 
-  try {
-    await createConnection();
-    console.log('Database connected');
-  } catch (err) {
-    console.log(err);
-  }
-});
+//   try {
+//     await createConnection();
+//     console.log('Database connected');
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
 
 app.get('*', (_, res: Response) => {
   res.sendFile(path.join(__dirname, 'client/build/index.html'));
