@@ -22,6 +22,7 @@ const PORT = process.env.PORT;
 
 app.use(express.json());
 app.use(morgan('dev'));
+app.set('trust proxy', 1);
 app.use(trim);
 app.use(cookieParser());
 app.use(
