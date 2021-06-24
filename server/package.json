@@ -43,6 +43,8 @@
   },
   "scripts": {
     "start": "node ./build/server.js",
+    "postinstall": "tsc",
+    "watch-ts": "tsc -w",
     "heroku-postbuild": "rm -rf ./build && tsc -p ./",
     "server": "nodemon --exec ts-node src/server.ts",
     "client": "cd client && npm run dev",
