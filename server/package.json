@@ -42,7 +42,8 @@
     "uuid": "^8.3.2"
   },
   "scripts": {
-    "start": "ts-node src/server.ts",
+    "start": "node ./build/server.js",
+    "build": "rm -rf ./build && tsc -p ./",
     "postinstall": "tsc",
     "watch-ts": "tsc -w",
     "heroku-postbuild": "rm -rf ./build && tsc -p ./",
