@@ -35,19 +35,21 @@ export default class User extends Entity {
   @Column({ unique: true })
   username: string;
 
-  @Exclude()
-  @Column()
-  @Length(6, 255, { message: 'Must be at 6 characters long' })
-  password: string;
+  // @Exclude()
+  // @Column()
+  // @Length(6, 255, { message: 'Must be at 6 characters long' })
+  // password: string;
 
+  @Column()
+  passwordHash: string;
   // @OneToMany(() => Post, (post) => post.user)
   // posts: Post[];
 
   // @OneToMany(() => Vote, (vote) => vote.user)
   // Votes: Vote[];
 
-  @BeforeInsert()
-  async hashPassword() {
-    this.password = await bcrypt.hash(this.password, 6);
-  }
+  // @BeforeInsert()
+  // async hashPassword() {
+  //   this.password = await bcrypt.hash(this.password, 6);
+  // }
 }

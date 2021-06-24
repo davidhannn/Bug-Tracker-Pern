@@ -6,6 +6,7 @@ import { UserState } from '../types';
 import authService from '../../services/auth';
 
 import { fetchProjects } from './projectSlice';
+import storage from '../../utils/localStorage';
 
 interface InitialAuthState {
   user: UserState | null;
@@ -36,6 +37,9 @@ export const login = (credentials: CredentialsPayload): AppThunk => {
       const userData = await authService.login(credentials);
       dispatch(setUser(userData));
 
+      storage.saveUser(userData);
+      authService.setToken(userData.token);
+
       dispatch(fetchProjects());
     } catch (err) {
       console.log(err);
@@ -49,10 +53,13 @@ export const registerUser = (credentials: CredentialsPayload): AppThunk => {
       const newUser = await authService.register(credentials);
       dispatch(setUser(newUser));
 
-      const loggedUser = await authService.verify();
-      if (loggedUser) {
-        dispatch(setUser(loggedUser));
-      }
+      storage.saveUser(newUser);
+      authService.setToken(newUser.token);
+
+      // const loggedUser = await authService.verify();
+      // if (loggedUser) {
+      //   dispatch(setUser(loggedUser));
+      // }
       dispatch(fetchProjects());
     } catch (err) {
       console.log(err);
@@ -63,12 +70,16 @@ export const registerUser = (credentials: CredentialsPayload): AppThunk => {
 export const autoLogin = (): AppThunk => {
   return async (dispatch) => {
     try {
-      const loggedUser = await authService.verify();
+      const loggedUser = storage.loadUser();
       if (loggedUser) {
         dispatch(setUser(loggedUser));
+        authService.setToken(loggedUser.token);
+        dispatch(fetchProjects());
       }
-
-      dispatch(fetchProjects());
+      // const loggedUser = await authService.verify();
+      // if (loggedUser) {
+      //   dispatch(setUser(loggedUser));
+      // }
     } catch (err) {
       console.log(err);
     }
@@ -77,8 +88,8 @@ export const autoLogin = (): AppThunk => {
 
 export const logout = (): AppThunk => {
   return async (dispatch) => {
-    await authService.logout();
     dispatch(logOutUser);
+    storage.removeUser();
   };
 };
 

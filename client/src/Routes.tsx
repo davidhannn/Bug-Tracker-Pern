@@ -16,34 +16,35 @@ import backendUrl from './backendUrl';
 
 import { useTheme } from '@material-ui/core/styles';
 import { Container, useMediaQuery } from '@material-ui/core';
+import storage from './utils/localStorage';
 
 const Routes = () => {
   const { user } = useSelector(selectAuthState);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
-  useEffect(() => {}, []);
+  const isLoggedIn = storage.loadUser() || user;
 
   return (
     <Container disableGutters={isMobile}>
       <BrowserRouter>
-        {user ? <Navbar /> : null}
+        {!isLoggedIn ? <Navbar /> : null}
         <Switch>
           <Route exact path="/">
-            {user ? <HomePage /> : <Redirect to="/login" />}
+            {isLoggedIn ? <HomePage /> : <Redirect to="/login" />}
           </Route>
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/login">
-            {!user ? <LoginPage /> : <Redirect to="/" />}
+            {!isLoggedIn ? <LoginPage /> : <Redirect to="/" />}
           </Route>
           <Route exact path="/createProject">
-            {user ? <CreateProjectPage /> : <Redirect to="/" />}
+            {isLoggedIn ? <CreateProjectPage /> : <Redirect to="/" />}
           </Route>
           <Route exact path="/projects/:projectId">
-            {user ? <ProjectPage /> : <Redirect to="/" />}
+            {isLoggedIn ? <ProjectPage /> : <Redirect to="/" />}
           </Route>
           <Route exact path="/projects/:projectId/bugs/:bugId">
-            {user ? <BugPage /> : <Redirect to="/" />}
+            {isLoggedIn ? <BugPage /> : <Redirect to="/" />}
           </Route>
         </Switch>
       </BrowserRouter>

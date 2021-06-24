@@ -6,6 +6,20 @@ interface Credentials {
   password: string;
 }
 
+type Token = string | null;
+
+let token: Token = null;
+
+const setToken = (newToken: string) => {
+  token = newToken;
+};
+
+export const setConfig = () => {
+  return {
+    headers: { 'x-auth-token': token },
+  };
+};
+
 const login = async (credentials: Credentials) => {
   const response = await Axios.post(`${backendUrl}/login`, credentials);
   return response.data;
@@ -28,6 +42,6 @@ const verify = async () => {
 const logout = async () => {
   const response = await Axios.get(`${backendUrl}/logout`);
 };
-const authService = { login, logout, verify, register };
+const authService = { login, logout, verify, register, setToken };
 
 export default authService;

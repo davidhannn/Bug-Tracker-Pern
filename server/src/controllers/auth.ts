@@ -4,6 +4,7 @@ import { isEmpty, validate } from 'class-validator';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import cookie from 'cookie';
+import { JWT_SECRET } from '../utils/config';
 
 const mapErrors = (errors: Object[]) => {
   return errors.reduce((prev: any, err: any) => {
@@ -29,18 +30,36 @@ export const register = async (req: Request, res: Response) => {
     }
 
     // Create the user
-    const user = new User({ username, password });
 
-    errors = await validate(user);
+    const saltRounds = 10;
+    const passwordHash = await bcrypt.hash(password, saltRounds);
 
-    if (errors.length > 0) {
-      return res.status(400).json(mapErrors(errors));
-    }
+    const user = User.create({ username, passwordHash });
 
     await user.save();
 
+    const token = jwt.sign(
+      {
+        id: user.id,
+        username: user.username,
+      },
+      JWT_SECRET
+    );
+
+    return res.status(201).json({
+      id: user.id,
+      username: user.username,
+      token,
+    });
+    // errors = await validate(user);
+
+    // if (errors.length > 0) {
+    //   return res.status(400).json(mapErrors(errors));
+    // }
+
+    // await user.save();
+
     // Return the user
-    return res.json(user);
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
@@ -63,27 +82,34 @@ export const login = async (req: Request, res: Response) => {
 
     if (!user) return res.status(404).json({ error: 'User not found' });
 
-    const passwordMatches = await bcrypt.compare(password, user.password);
+    const passwordMatches = await bcrypt.compare(password, user.passwordHash);
 
     if (!passwordMatches) {
       return res.status(401).json({ password: 'Password is incorrect' });
     }
 
-    const token = jwt.sign({ username }, process.env.JWT_SECRET!);
-
-    res.set(
-      'Set-Cookie',
-      cookie.serialize('token', token, {
-        // httpOnly: true,
-        // secure: process.env.NODE_ENV === 'production',
-        sameSite: 'none',
-        secure: true,
-        maxAge: 3600,
-        path: '/',
-      })
+    const token = jwt.sign(
+      { id: user.id, username: user.username },
+      JWT_SECRET
     );
 
-    return res.json(user);
+    // res.set(
+    //   'Set-Cookie',
+    //   cookie.serialize('token', token, {
+    //     httpOnly: true,
+    //     // secure: process.env.NODE_ENV === 'production',
+    //     sameSite: 'none',
+    //     secure: true,
+    //     maxAge: 3600,
+    //     path: '/',
+    //   })
+    // );
+
+    return res.status(201).json({
+      id: user.id,
+      username: user.username,
+      token,
+    });
   } catch (err) {
     return res.json({ error: 'Something went wrong ' });
   }
