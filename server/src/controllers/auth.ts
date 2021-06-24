@@ -74,7 +74,7 @@ export const login = async (req: Request, res: Response) => {
     res.set(
       'Set-Cookie',
       cookie.serialize('token', token, {
-        httpOnly: true,
+        // httpOnly: true,
         // secure: process.env.NODE_ENV === 'production',
         sameSite: 'none',
         secure: true,
@@ -100,6 +100,7 @@ export const logout = (_: Request, res: Response) => {
       httpOnly: true,
       // secure: process.env.NODE_ENV === 'production',
       sameSite: 'none',
+      secure: true,
       expires: new Date(0),
       path: '/',
     })
