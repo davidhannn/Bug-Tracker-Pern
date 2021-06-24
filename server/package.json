@@ -43,7 +43,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "heroku-postbuild": "cd client && npm install && npm run build",
+    "heroku-postbuild": "npm run build",
     "server": "nodemon --exec ts-node src/server.ts",
     "client": "cd client && npm run dev",
     "typeorm": "ts-node ./node_modules/typeorm/cli.js",
