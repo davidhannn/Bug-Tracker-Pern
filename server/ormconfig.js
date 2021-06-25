@@ -10,24 +10,33 @@ module.exports = {
   url:
     process.env.DATABASE_URL ||
     `${type}://${username}:${password}@${host}:${port}/${database}`,
-  entities: [
-    process.env.NODE_ENV === 'production'
-      ? 'build/entity/**/*.js'
-      : 'src/entity/**/*.ts',
-  ],
-  migrations: [
-    process.env.NODE_ENV === 'production'
-      ? 'build/migration/**/*.js'
-      : 'src/migration/**/*.ts',
-  ],
+  entities: ['src/entity/**/*.ts', './entity/**/*.js'],
+  migrations: ['src/migration/**/*.ts', './migration/**/*.js'],
+  subscribers: ['src/subscriber/**/*.ts', './subscriber/**/*.js'],
+  seeds: ['src/seeds/**/*{.ts,.js}'],
   cli: {
-    entitiesDir:
-      process.env.NODE_ENV === 'production' ? 'build/entity' : 'src/entity',
-    migrationsDir:
-      process.env.NODE_ENV === 'production'
-        ? 'build/migration'
-        : 'src/migration',
+    entitiesDir: 'src/entity',
+    migrationsDir: 'src/migration',
+    subscribersDir: 'src/subscriber',
   },
+  // entities: [
+  //   process.env.NODE_ENV === 'production'
+  //     ? 'build/entity/**/*.js'
+  //     : 'src/entity/**/*.ts',
+  // ],
+  // migrations: [
+  //   process.env.NODE_ENV === 'production'
+  //     ? 'build/migration/**/*.js'
+  //     : 'src/migration/**/*.ts',
+  // ],
+  // cli: {
+  //   entitiesDir:
+  //     process.env.NODE_ENV === 'production' ? 'build/entity' : 'src/entity',
+  //   migrationsDir:
+  //     process.env.NODE_ENV === 'production'
+  //       ? 'build/migration'
+  //       : 'src/migration',
+  // },
   synchronize: true,
   logging: true,
   extra: {
