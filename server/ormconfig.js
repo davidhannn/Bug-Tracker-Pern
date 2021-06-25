@@ -1,3 +1,5 @@
+const rootDir = process.env.NODE_ENV === 'production' ? 'build' : 'src';
+
 const type = process.env.DB_TYPE || 'postgres';
 const username = process.env.DB_USERNAME || 'postgres';
 const password = process.env.DB_PASSWORD || '12345';
@@ -6,18 +8,24 @@ const port = parseInt(process.env.DB_PORT, 10) || 5432;
 const database = process.env.DB_DATABASE || 'bugtracker';
 
 module.exports = {
-  type,
+  type: process.env.DB_DIALECT,
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
   url:
     process.env.DATABASE_URL ||
     `${type}://${username}:${password}@${host}:${port}/${database}`,
-  entities: ['src/entity/**/*.ts', './entity/**/*.js'],
-  migrations: ['src/migration/**/*.ts', './migration/**/*.js'],
-  subscribers: ['src/subscriber/**/*.ts', './subscriber/**/*.js'],
-  seeds: ['src/seeds/**/*{.ts,.js}'],
+  logging: process.env.NODE_ENV === 'development',
+  entities: [rootDir + '/entities/**/*{.ts,.js}'],
+  migrations: [rootDir + '/migrations/**/*{.ts,.js}'],
+  subscribers: [rootDir + '/subscribers/**/*{.ts,.js}'],
+  seeds: [rootDir + '/seeds/**/*{.ts,.js}'],
   cli: {
-    entitiesDir: 'src/entity',
-    migrationsDir: 'src/migration',
-    subscribersDir: 'src/subscriber',
+    entitiesDir: rootDir + '/entities',
+    migrationsDir: rootDir + '/migrations',
+    subscribersDir: rootDir + '/subscribers',
   },
   // entities: [
   //   process.env.NODE_ENV === 'production'
