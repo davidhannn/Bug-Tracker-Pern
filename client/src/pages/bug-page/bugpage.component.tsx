@@ -72,10 +72,12 @@ const BugPage = () => {
 
   const handleBugReopen = () => {
     dispatch(resolveBug(projectId, bugId, 'reopen'));
+    history.push(`/projects/${projectId}`);
   };
 
   const handleBugClose = () => {
     dispatch(resolveBug(projectId, bugId, 'close'));
+    history.push(`/projects/${projectId}`);
   };
 
   const adminButtons = () => {

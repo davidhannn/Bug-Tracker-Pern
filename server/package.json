@@ -44,6 +44,7 @@
   "scripts": {
     "start": "node ./build/server.js",
     "build": "rm -rf ./build && tsc -p ./",
+    "dev": "cross-env NODE_ENV=test ts-node-dev --respawn ./src/server.ts",
     "postinstall": "tsc",
     "watch-ts": "tsc -w",
     "heroku-postbuild": "rm -rf ./build && tsc -p ./",

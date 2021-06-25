@@ -28,7 +28,7 @@ const Routes = () => {
   return (
     <Container disableGutters={isMobile}>
       <BrowserRouter>
-        {!isLoggedIn ? <Navbar /> : null}
+        {isLoggedIn ? <Navbar /> : null}
         <Switch>
           <Route exact path="/">
             {isLoggedIn ? <HomePage /> : <Redirect to="/login" />}

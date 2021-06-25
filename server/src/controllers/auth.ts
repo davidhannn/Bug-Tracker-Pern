@@ -15,55 +15,49 @@ const mapErrors = (errors: Object[]) => {
 
 export const register = async (req: Request, res: Response) => {
   const { username, password } = req.body;
+  // Validate data
+  let errors: any = {};
+  // const emailUser = await User.findOne({ email });
+  const usernameUser = await User.findOne({ username });
 
-  try {
-    // Validate data
-    let errors: any = {};
-    // const emailUser = await User.findOne({ email });
-    const usernameUser = await User.findOne({ username });
+  // if (emailUser) errors.email = 'Email is already taken';
+  if (usernameUser) errors.username = 'Username is already taken';
 
-    // if (emailUser) errors.email = 'Email is already taken';
-    if (usernameUser) errors.username = 'Username is already taken';
+  if (Object.keys(errors).length > 0) {
+    return res.status(400).json(errors);
+  }
 
-    if (Object.keys(errors).length > 0) {
-      return res.status(400).json(errors);
-    }
+  // Create the user
 
-    // Create the user
+  const saltRounds = 10;
+  const passwordHash = await bcrypt.hash(password, saltRounds);
 
-    const saltRounds = 10;
-    const passwordHash = await bcrypt.hash(password, saltRounds);
+  const user = User.create({ username, passwordHash });
 
-    const user = User.create({ username, passwordHash });
+  await user.save();
 
-    await user.save();
-
-    const token = jwt.sign(
-      {
-        id: user.id,
-        username: user.username,
-      },
-      JWT_SECRET
-    );
-
-    return res.status(201).json({
+  const token = jwt.sign(
+    {
       id: user.id,
       username: user.username,
-      token,
-    });
-    // errors = await validate(user);
+    },
+    JWT_SECRET
+  );
 
-    // if (errors.length > 0) {
-    //   return res.status(400).json(mapErrors(errors));
-    // }
+  return res.status(201).json({
+    id: user.id,
+    username: user.username,
+    token,
+  });
+  // errors = await validate(user);
 
-    // await user.save();
+  // if (errors.length > 0) {
+  //   return res.status(400).json(mapErrors(errors));
+  // }
 
-    // Return the user
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json(err);
-  }
+  // await user.save();
+
+  // Return the user
 };
 
 export const login = async (req: Request, res: Response) => {

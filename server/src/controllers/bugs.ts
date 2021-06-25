@@ -2,6 +2,7 @@ import { Request, response, Response } from 'express';
 import { resolve } from 'url';
 import Bug from '../entity/Bug';
 import Project from '../entity/Project';
+import User from '../entity/User';
 
 export const getBugs = async (req: Request, res: Response) => {
   const { projectId } = req.params;
@@ -18,6 +19,8 @@ export const createBug = async (req: Request, res: Response) => {
   const { projectId } = req.params;
   const { name, description, priority } = req.body;
 
+  const user: User = res.locals.user;
+
   console.log(req.body);
 
   try {
@@ -27,7 +30,7 @@ export const createBug = async (req: Request, res: Response) => {
       priority,
       isResolved: false,
       projectId,
-      createdById: res.locals.user.id,
+      createdById: res.locals.user,
     });
 
     await newBug.save();

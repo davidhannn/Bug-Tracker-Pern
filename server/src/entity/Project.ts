@@ -21,7 +21,7 @@ export default class Project extends Entity {
     Object.assign(this, project);
   }
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, (user) => user)
   @JoinColumn({ name: 'createdById' })
   createdBy: User;
   @Column({ nullable: true })

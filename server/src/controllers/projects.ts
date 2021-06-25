@@ -21,12 +21,13 @@ const fieldsToSelect = [
 export const createProject = async (req: Request, res: Response) => {
   const { name } = req.body;
   const membersIds = req.body.members;
-  // const user: User = res.locals.user;
+
+  const user: User = res.locals.user;
 
   try {
     const newProject = Project.create({
       name,
-      createdById: res.locals.user.id,
+      createdById: res.locals.user,
     });
 
     await newProject.save();
@@ -54,13 +55,7 @@ export const createProject = async (req: Request, res: Response) => {
 
 export const getProjects = async (_: Request, res: Response) => {
   try {
-    // const projects = await Project.find({
-    //   order: { createdAt: 'DESC' },
-    // });
-
     const projects = await Project.createQueryBuilder('project')
-      // .leftJoin('project.members', 'projectMember')
-      // .where('projectMember.projectId = project.id')
       .leftJoinAndSelect('project.members', 'members')
       .leftJoinAndSelect('project.createdBy', 'createdBy')
       .leftJoinAndSelect('members.member', 'member')
@@ -90,10 +85,6 @@ export const deleteProject = async (req: Request, res: Response) => {
   const { projectId }: any = req.params;
 
   const projectToDelete = await Project.findOneOrFail({ id: projectId });
-
-  // if(projectToDelete.createdById !== req.locals.user.id) {
-  //   return res.status(401).send({ message: 'access is denied'})
-  // }
 
   await Member.delete({ projectId });
   await Bug.delete({ projectId });

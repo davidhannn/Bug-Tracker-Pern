@@ -12,10 +12,10 @@ import user from '../middleware/user';
 
 const router = express.Router();
 
-router.post('/', user, auth, createProject);
+router.post('/', user, createProject);
 router.get('/', getProjects);
 router.get('/:projectId', getProject);
-router.delete('/:projectId', user, auth, deleteProject);
-router.put('/:projectId', user, auth, editProjectName);
+router.delete('/:projectId', user, deleteProject);
+router.put('/:projectId', user, editProjectName);
 
 export default router;
