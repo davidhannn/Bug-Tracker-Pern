@@ -29,8 +29,8 @@ app.use(trim);
 app.use(
   cors({
     credentials: true,
-    origin: process.env.ORIGIN,
-    // origin: process.env.FRONTEND_URL,
+    // origin: process.env.ORIGIN,
+    origin: process.env.FRONTEND_URL,
   })
 );
 
