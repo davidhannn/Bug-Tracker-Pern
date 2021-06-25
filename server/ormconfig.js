@@ -11,23 +11,30 @@ module.exports = {
     process.env.DATABASE_URL ||
     `${type}://${username}:${password}@${host}:${port}/${database}`,
   entities: [
-    process.env.NODE_ENV === 'test'
-      ? 'src/entity/**/*.ts'
-      : 'build/entity/**/*.js',
+    process.env.NODE_ENV === 'production'
+      ? 'build/entity/**/*.js'
+      : 'src/entity/**/*.ts',
   ],
   migrations: [
-    process.env.NODE_ENV === 'test'
-      ? 'src/migration/**/*.ts'
-      : 'build/migration/**/*.js',
+    process.env.NODE_ENV === 'production'
+      ? 'build/migration/**/*.js'
+      : 'src/migration/**/*.ts',
   ],
   cli: {
     entitiesDir:
-      process.env.NODE_ENV === 'test' ? 'src/entity' : 'build/entity',
+      process.env.NODE_ENV === 'production' ? 'build/entity' : 'src/entity',
     migrationsDir:
-      process.env.NODE_ENV === 'test' ? 'src/migration' : 'build/migration',
+      process.env.NODE_ENV === 'production'
+        ? 'build/migration'
+        : 'src/migration',
   },
   synchronize: true,
   logging: true,
+  extra: {
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  },
   // entities: ['src/entity/**/*.ts', './entity/**/*.js'],
 
   // migrations: ['src/migration/**/*.ts', './migration/**/*.js'],
