@@ -8,12 +8,12 @@ const port = parseInt(process.env.DB_PORT, 10) || 5432;
 const database = process.env.DB_DATABASE || 'bugtracker';
 
 module.exports = {
-  type: process.env.DB_DIALECT,
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
+  type,
+  // host: process.env.DB_HOST,
+  // port: process.env.DB_PORT,
+  // username: process.env.DB_USERNAME,
+  // password: process.env.DB_PASSWORD,
+  // database: process.env.DB_DATABASE,
   url:
     process.env.DATABASE_URL ||
     `${type}://${username}:${password}@${host}:${port}/${database}`,
