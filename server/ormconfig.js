@@ -27,25 +27,25 @@ module.exports = {
     migrationsDir: rootDir + '/migrations',
     subscribersDir: rootDir + '/subscribers',
   },
-  // entities: [
-  //   process.env.NODE_ENV === 'production'
-  //     ? 'build/entity/**/*.js'
-  //     : 'src/entity/**/*.ts',
-  // ],
-  // migrations: [
-  //   process.env.NODE_ENV === 'production'
-  //     ? 'build/migration/**/*.js'
-  //     : 'src/migration/**/*.ts',
-  // ],
-  // cli: {
-  //   entitiesDir:
-  //     process.env.NODE_ENV === 'production' ? 'build/entity' : 'src/entity',
-  //   migrationsDir:
-  //     process.env.NODE_ENV === 'production'
-  //       ? 'build/migration'
-  //       : 'src/migration',
-  // },
-  synchronize: true,
+  entities: [
+    process.env.NODE_ENV === 'production'
+      ? 'build/entity/**/*.js'
+      : 'src/entity/**/*.ts',
+  ],
+  migrations: [
+    process.env.NODE_ENV === 'production'
+      ? 'build/migration/**/*.js'
+      : 'src/migration/**/*.ts',
+  ],
+  cli: {
+    entitiesDir:
+      process.env.NODE_ENV === 'production' ? 'build/entity' : 'src/entity',
+    migrationsDir:
+      process.env.NODE_ENV === 'production'
+        ? 'build/migration'
+        : 'src/migration',
+  },
+  synchronize: false,
   logging: true,
   extra: {
     ssl: {
