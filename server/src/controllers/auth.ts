@@ -128,3 +128,7 @@ export const logout = (_: Request, res: Response) => {
 
   return res.status(200).json({ success: true });
 };
+
+export const test = (_: Request, res: Response) => {
+  return res.json({ message: 'api test' });
+};
