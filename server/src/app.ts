@@ -26,17 +26,23 @@ app.set('trust proxy', 1);
 app.use(trim);
 // app.use(cookieParser());
 // app.use(cors());
-app.use(
-  cors({
-    credentials: true,
-    // origin: process.env.ORIGIN,
-    origin: process.env.FRONTEND_URL,
-  })
-);
+// app.use(
+//   cors({
+//     credentials: true,
+//     // origin: process.env.ORIGIN,
+//     origin: process.env.FRONTEND_URL,
+//   })
+// );
 
 // if (process.env.NODE_ENV === 'production') {
 //   app.use(express.static(path.join(__dirname, 'client/build')));
 // }
+
+var corsOptions = {
+  origin: ['http://localhost:3000', 'https://bug-tracker-pern.netlify.app'],
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 // app.use(express.static('public'));
 
