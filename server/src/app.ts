@@ -40,7 +40,7 @@ app.use(trim);
 
 var corsOptions = {
   origin: ['http://localhost:3000', 'https://bug-tracker-pern.netlify.app'],
-  credentials: true,
+  // credentials: true,
 };
 app.use(cors(corsOptions));
 

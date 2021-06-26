@@ -17,7 +17,7 @@ const setToken = (newToken: string) => {
 export const setConfig = () => {
   return {
     headers: { 'x-auth-token': token },
-    withCredentials: true,
+    // withCredentials: true,
   };
 };
 
