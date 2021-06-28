@@ -27,14 +27,20 @@ export const setConfig = () => {
 };
 
 const login = async (credentials: Credentials) => {
-  const response = await Axios.post(`${backendUrl}/login`, credentials);
+  const response = await Axios.post(
+    `${backendUrl}/login`,
+    credentials,
+    setConfig()
+  );
   return response.data;
 };
 
 const register = async (credentials: Credentials) => {
-  const response = await Axios.post(`${backendUrl}/register`, credentials, {
-    // withCredentials: true,
-  });
+  const response = await Axios.post(
+    `${backendUrl}/register`,
+    credentials,
+    setConfig()
+  );
   return response.data;
 };
 
