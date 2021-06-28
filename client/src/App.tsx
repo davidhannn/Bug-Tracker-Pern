@@ -9,7 +9,7 @@ import { autoLogin, selectAuthState } from './redux/slices/authSlice';
 import classes from '*.module.css';
 import { useBodyStyles } from './styles/muiStyles';
 
-Axios.defaults.withCredentials = true;
+// Axios.defaults.withCredentials = true;
 
 const App = () => {
   const dispatch = useDispatch();

@@ -17,7 +17,7 @@ const setToken = (newToken: string) => {
 export const setConfig = () => {
   return {
     headers: { 'x-auth-token': token },
-    withCredentials: true,
+    // withCredentials: true,
   };
 };
 
@@ -28,7 +28,7 @@ const login = async (credentials: Credentials) => {
 
 const register = async (credentials: Credentials) => {
   const response = await Axios.post(`${backendUrl}/register`, credentials, {
-    withCredentials: true,
+    // withCredentials: true,
   });
   return response.data;
 };

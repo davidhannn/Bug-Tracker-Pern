@@ -59,8 +59,9 @@ var corsOptionsDelegate = function (req, callback) {
 //   optionsSuccessStatus: 200,
 // };
 app.use(cors(corsOptionsDelegate));
+// app.options('*', cors())
 
-// app.use(express.static('public'));
+app.use(express.static('public'));
 
 app.use('/', authRoutes);
 app.use('/projects', projectRoutes);
