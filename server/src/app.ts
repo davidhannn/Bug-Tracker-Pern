@@ -38,12 +38,27 @@ app.use(trim);
 //   app.use(express.static(path.join(__dirname, 'client/build')));
 // }
 
-var corsOptions = {
-  origin: 'https://bug-tracker-pern.netlify.app',
-  // origin: ['http://localhost:3000', 'https://bug-tracker-pern.netlify.app'],
-  credentials: true,
+var whitelist = [
+  'https://bug-tracker-pern.netlify.app',
+  'http://bug-tracker-pern.netlify.app',
+];
+var corsOptionsDelegate = function (req, callback) {
+  var corsOptions;
+  if (whitelist.indexOf(req.header('Origin')) !== -1) {
+    corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false }; // disable CORS for this request
+  }
+  callback(null, corsOptions); // callback expects two parameters: error and options
 };
-app.use(cors(corsOptions));
+
+// var corsOptions = {
+//   origin: 'https://bug-tracker-pern.netlify.app/',
+//   // origin: ['http://localhost:3000', 'https://bug-tracker-pern.netlify.app'],
+//   credentials: true,
+//   optionsSuccessStatus: 200,
+// };
+app.use(cors(corsOptionsDelegate));
 
 // app.use(express.static('public'));
 
