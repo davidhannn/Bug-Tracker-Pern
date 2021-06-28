@@ -20,7 +20,7 @@ import bugRoutes from './routes/bugs';
 const app = express();
 const PORT = process.env.PORT;
 
-// app.use(cors());
+app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 app.set('trust proxy', 1);
@@ -58,15 +58,15 @@ app.use(trim);
 //   credentials: true,
 //   optionsSuccessStatus: 200,
 // // };
-app.use(
-  cors({
-    origin: 'https://bug-tracker-pern.netlify.app',
-    methods: 'GET, POST, PUT, DELETE, OPTIONS',
-    allowedHeaders:
-      'Authorization, Access-Control-Allow-Headers, Origin,X-Requested-With,Content-Type,Accept,content-type,application/json',
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: 'https://bug-tracker-pern.netlify.app',
+//     methods: 'GET, POST, PUT, DELETE, OPTIONS',
+//     allowedHeaders:
+//       'Authorization, Access-Control-Allow-Headers, Origin,X-Requested-With,Content-Type,Accept,content-type,application/json',
+//     credentials: true,
+//   })
+// );
 
 // app.options('*', cors())
 app.use(express.static('public'));
