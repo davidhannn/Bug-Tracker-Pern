@@ -39,9 +39,9 @@ app.use(trim);
 // }
 
 var corsOptions = {
-  origin: process.env.FRONTEND_URL,
+  origin: 'https://bug-tracker-pern.netlify.app',
   // origin: ['http://localhost:3000', 'https://bug-tracker-pern.netlify.app'],
-  // credentials: true,
+  credentials: true,
 };
 app.use(cors(corsOptions));
 
