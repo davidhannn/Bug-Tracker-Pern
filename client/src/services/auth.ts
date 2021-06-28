@@ -16,7 +16,6 @@ const setToken = (newToken: string) => {
 
 export const setConfig = () => {
   return {
-    backendUrl,
     headers: {
       'x-auth-token': token,
       // 'Access-Control-Allow-Origin': '*',
