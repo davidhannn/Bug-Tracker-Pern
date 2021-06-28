@@ -26,20 +26,12 @@ export const setConfig = () => {
 };
 
 const login = async (credentials: Credentials) => {
-  const response = await Axios.post(
-    `${backendUrl}/login`,
-    credentials,
-    setConfig()
-  );
+  const response = await Axios.post(`${backendUrl}/login`, credentials);
   return response.data;
 };
 
 const register = async (credentials: Credentials) => {
-  const response = await Axios.post(
-    `${backendUrl}/register`,
-    credentials,
-    setConfig()
-  );
+  const response = await Axios.post(`${backendUrl}/register`, credentials);
   return response.data;
 };
 
