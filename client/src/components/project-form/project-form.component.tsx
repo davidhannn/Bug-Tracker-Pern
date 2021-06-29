@@ -75,7 +75,6 @@ const ProjectForm: React.FC<ProjectFormType> = ({
   };
 
   const handleCreateProject = (e: React.SyntheticEvent) => {
-    e.preventDefault();
     dispatch(createNewProject({ name, members }, closeDialog));
   };
 

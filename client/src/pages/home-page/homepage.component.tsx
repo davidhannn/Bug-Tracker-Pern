@@ -41,9 +41,9 @@ const HomePage = () => {
     sortBy
   );
 
-  useEffect(() => {
-    // dispatch(fetchProjects());
-  }, [projects]);
+  // useEffect(() => {
+  //   // dispatch(fetchProjects());
+  // }, [projects]);
 
   const projectDisplay = () => {
     if (fetchStatus === 'loading') {

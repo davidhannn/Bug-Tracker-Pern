@@ -20,7 +20,9 @@ import Paper from '@material-ui/core/Paper';
 import BugReportIcon from '@material-ui/icons/BugReport';
 import PersonIcon from '@material-ui/icons/Person';
 
-import { selectProjectsState } from '../../redux/slices/projectSlice';
+// import { selectProjectsState } from '../../redux/slices/projectSlice';
+// import { selectProjectsState } from '../../redux/slices/projectSlice';
+import { selectAuthState } from '../../redux/slices/authSlice';
 import { ProjectState } from '../../redux/types';
 import { useTableStyles } from '../../styles/muiStyles';
 
@@ -29,7 +31,7 @@ const ProjectsTable: React.FC<{ projects: ProjectState[] }> = ({
 }) => {
   const classes = useTableStyles();
   const history = useHistory();
-  // const { projects } = useSelector(selectProjectsState);
+  const { user } = useSelector(selectAuthState);
 
   return (
     <div className={classes.root}>
@@ -45,36 +47,32 @@ const ProjectsTable: React.FC<{ projects: ProjectState[] }> = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {projects &&
-              projects.map((project, i) => (
-                <TableRow key={project.id}>
-                  <TableCell
-                    component="th"
-                    scope="row"
-                    onClick={() => history.push(`/projects/${project.id}`)}
-                    className={classes.clickableCell}
-                  >
-                    {project.name}
-                  </TableCell>
-                  <TableCell align="right">
-                    <BugReportIcon />
-                    {project && project.bugs.length}
-                  </TableCell>
-                  <TableCell align="right">
-                    <PersonIcon />
-
-                    {project && project.members.length}
-                  </TableCell>
-                  <TableCell align="right">
-                    {/* {project && project.createdBy.username} */}
-                  </TableCell>
-                  <TableCell align="right">
-                    {/* {project.createdBy[0]} */}
-                    {formatDateTime(project.createdAt)}
-                  </TableCell>
-                  {/* <StyledTableCell align="right">{project.carbs}</StyledTableCell> */}
-                </TableRow>
-              ))}
+            {projects.map((project, i) => (
+              <TableRow key={project.id}>
+                <TableCell
+                  component="th"
+                  scope="row"
+                  onClick={() => history.push(`/projects/${project.id}`)}
+                  className={classes.clickableCell}
+                >
+                  {project.name}
+                </TableCell>
+                <TableCell align="right">
+                  {/* <BugReportIcon /> */}
+                  {project.bugs.length}
+                </TableCell>
+                <TableCell align="right">
+                  {/* <PersonIcon /> */}
+                  {project.members.length}
+                </TableCell>
+                <TableCell align="right">
+                  {project.createdBy.username}
+                </TableCell>
+                <TableCell align="right">
+                  {formatDateTime(project.createdAt)}
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>

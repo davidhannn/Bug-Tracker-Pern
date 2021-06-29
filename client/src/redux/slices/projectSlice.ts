@@ -34,7 +34,8 @@ const projectsSlice = createSlice({
       state.fetchError = null;
     },
     addProject: (state, action: PayloadAction<ProjectState>) => {
-      state.projects = [...state.projects, action.payload];
+      // state.projects = [...state.projects, action.payload];
+      state.projects.push(action.payload);
       state.submitLoading = false;
       state.submitError = null;
     },

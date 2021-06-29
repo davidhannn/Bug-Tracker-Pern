@@ -17,7 +17,7 @@ module.exports = {
   url:
     process.env.DATABASE_URL ||
     `${type}://${username}:${password}@${host}:${port}/${database}`,
-  logging: process.env.NODE_ENV === 'development',
+  logging: process.env.NODE_ENV === 'test',
   // entities: [rootDir + '/entities/**/*{.ts,.js}'],
   // migrations: [rootDir + '/migrations/**/*{.ts,.js}'],
   // subscribers: [rootDir + '/subscribers/**/*{.ts,.js}'],
