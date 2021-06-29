@@ -1,4 +1,4 @@
-const rootDir = process.env.NODE_ENV === 'production' ? 'build' : 'src';
+// const rootDir = process.env.NODE_ENV === 'production' ? 'build' : 'src';
 
 const type = process.env.DB_TYPE || 'postgres';
 const username = process.env.DB_USERNAME || 'postgres';
@@ -28,22 +28,20 @@ module.exports = {
   //   subscribersDir: rootDir + '/subscribers',
   // },
   entities: [
-    process.env.NODE_ENV === 'production'
-      ? 'build/entity/**/*.js'
-      : 'src/entity/**/*.ts',
+    process.env.NODE_ENV === 'test'
+      ? 'src/entity/**/*.ts'
+      : 'build/entity/**/*.js',
   ],
   migrations: [
-    process.env.NODE_ENV === 'production'
-      ? 'build/migration/**/*.js'
-      : 'src/migration/**/*.ts',
+    process.env.NODE_ENV === 'test'
+      ? 'src/migration/**/*.ts'
+      : 'build/migration/**/*.js',
   ],
   cli: {
     entitiesDir:
-      process.env.NODE_ENV === 'production' ? 'build/entity' : 'src/entity',
+      process.env.NODE_ENV === 'test' ? 'src/entity' : 'build/entity',
     migrationsDir:
-      process.env.NODE_ENV === 'production'
-        ? 'build/migration'
-        : 'src/migration',
+      process.env.NODE_ENV === 'test' ? 'src/migration' : 'build/migration',
   },
   synchronize: false,
   logging: true,
