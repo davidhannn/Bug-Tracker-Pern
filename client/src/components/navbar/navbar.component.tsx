@@ -19,9 +19,10 @@ const Navbar = () => {
   const { pathname } = useLocation();
 
   const { user } = useSelector(selectAuthState);
+
   const handleLogout = () => {
     dispatch(logout());
-    history.push('/login');
+    window.location.reload();
   };
 
   const handleBack = () => {

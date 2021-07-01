@@ -119,6 +119,10 @@ export const useHeaderStyles = makeStyles((theme) => ({
   mobileDescription: {
     marginBottom: '0.5rem',
   },
+  memberAvatars: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
 }));
 
 export const useSearchSortStyles = makeStyles(
