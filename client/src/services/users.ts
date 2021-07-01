@@ -4,8 +4,6 @@ import { setConfig } from './auth';
 
 const getUsers = async () => {
   const response = await Axios.get(`${backendUrl}/users`, setConfig());
-
-  console.log(response);
   return response.data;
 };
 

@@ -4,16 +4,22 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { UserState } from '../types';
 import authService from '../../services/auth';
+import { History } from 'history';
 
 import { fetchProjects } from './projectSlice';
 import storage from '../../utils/localStorage';
+import { getErrorMsg } from './../../utils/helper';
 
 interface InitialAuthState {
   user: UserState | null;
+  loading: boolean;
+  error: string | null;
 }
 
 const initialState: InitialAuthState = {
   user: null,
+  loading: false,
+  error: null,
 };
 
 const authSlice = createSlice({
@@ -22,16 +28,33 @@ const authSlice = createSlice({
   reducers: {
     setUser: (state, action: PayloadAction<UserState>) => {
       state.user = action.payload;
+      state.loading = false;
+      state.error = null;
     },
     logOutUser: (state, action) => {
       state.user = null;
     },
+    setAuthLoading: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    setAuthError: (state, action: PayloadAction<string>) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    clearAuthError: (state) => {
+      state.error = null;
+    },
   },
 });
 
-export const { setUser, logOutUser } = authSlice.actions;
+export const { setUser, logOutUser, setAuthError, clearAuthError } =
+  authSlice.actions;
 
-export const login = (credentials: CredentialsPayload): AppThunk => {
+export const login = (
+  credentials: CredentialsPayload,
+  history: History
+): AppThunk => {
   return async (dispatch) => {
     try {
       const userData = await authService.login(credentials);
@@ -39,15 +62,18 @@ export const login = (credentials: CredentialsPayload): AppThunk => {
 
       storage.saveUser(userData);
       authService.setToken(userData.token);
-
+      history.push('/');
       dispatch(fetchProjects());
-    } catch (err) {
-      console.log(err);
+    } catch (e) {
+      dispatch(setAuthError(getErrorMsg(e)));
     }
   };
 };
 
-export const registerUser = (credentials: CredentialsPayload): AppThunk => {
+export const registerUser = (
+  credentials: CredentialsPayload,
+  history: History
+): AppThunk => {
   return async (dispatch) => {
     try {
       const newUser = await authService.register(credentials);
@@ -55,14 +81,10 @@ export const registerUser = (credentials: CredentialsPayload): AppThunk => {
 
       storage.saveUser(newUser);
       authService.setToken(newUser.token);
-
-      // const loggedUser = await authService.verify();
-      // if (loggedUser) {
-      //   dispatch(setUser(loggedUser));
-      // }
+      history.push('/');
       dispatch(fetchProjects());
-    } catch (err) {
-      console.log(err);
+    } catch (e) {
+      dispatch(setAuthError(getErrorMsg(e)));
     }
   };
 };
@@ -76,10 +98,6 @@ export const autoLogin = (): AppThunk => {
         authService.setToken(loggedUser.token);
         dispatch(fetchProjects());
       }
-      // const loggedUser = await authService.verify();
-      // if (loggedUser) {
-      //   dispatch(setUser(loggedUser));
-      // }
     } catch (err) {
       console.log(err);
     }

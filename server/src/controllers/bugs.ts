@@ -21,8 +21,6 @@ export const createBug = async (req: Request, res: Response) => {
 
   const user: User = res.locals.user;
 
-  console.log(req.body);
-
   try {
     const newBug = Bug.create({
       name,

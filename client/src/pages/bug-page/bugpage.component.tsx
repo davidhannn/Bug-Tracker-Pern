@@ -50,7 +50,6 @@ const BugPage = () => {
     );
   }
 
-  console.log(bug);
   const {
     id,
     name,

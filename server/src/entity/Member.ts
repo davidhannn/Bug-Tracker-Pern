@@ -2,12 +2,9 @@ import {
   Entity,
   BaseEntity,
   Column,
-  Index,
-  BeforeInsert,
-  OneToMany,
   ManyToOne,
   JoinColumn,
-  PrimaryGeneratedColumn
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 // import Entity from './Entity';
@@ -16,11 +13,6 @@ import User from './User';
 
 @Entity('members')
 export default class Member extends BaseEntity {
-  // constructor(member: Partial<Member>) {
-  //   super();
-  //   Object.assign(this, member);
-  // }
-
   @PrimaryGeneratedColumn()
   id: number;
 

@@ -18,10 +18,7 @@ export const setConfig = () => {
   return {
     headers: {
       'x-auth-token': token,
-      // 'Access-Control-Allow-Origin': '*',
-      // 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
     },
-    // withCredentials: true,
   };
 };
 

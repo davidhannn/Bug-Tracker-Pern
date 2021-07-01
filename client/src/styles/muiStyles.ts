@@ -1,4 +1,6 @@
 import { makeStyles, Theme } from '@material-ui/core/styles';
+import { isAbsolute } from 'path';
+import { isWhiteSpaceLike } from 'typescript';
 
 export const navStyles = makeStyles((theme) => ({
   root: {
@@ -9,6 +11,40 @@ export const navStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+  },
+  buttonWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    position: 'absolute',
+    right: '1rem',
+    [theme.breakpoints.down('xs')]: {
+      right: '0.1rem',
+    },
+  },
+  avatar: {
+    // color: theme.palette.getContrastText(deepOrange[500]),
+    color: 'white',
+    backgroundColor: '#3f51b5',
+    borderStyle: 'solid',
+    borderColor: '#FFF',
+  },
+  navWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    width: '100%',
+    position: 'relative',
+  },
+  backButton: {
+    position: 'absolute',
+    left: '0.1rem',
+    color: 'white',
+    fontSize: '1.25rem',
+    [theme.breakpoints.down('xs')]: {
+      left: '0.1rem',
+    },
   },
 }));
 

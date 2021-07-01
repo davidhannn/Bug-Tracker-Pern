@@ -9,7 +9,7 @@ const getBugs = async (projectId: string) => {
     `${backendUrl}/projects/${projectId}/bugs`,
     setConfig()
   );
-  console.log(response);
+
   return response.data;
 };
 

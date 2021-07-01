@@ -1,5 +1,4 @@
 const storageKeyUser = 'bugTrackerUserKey';
-const storageKeyDarkMode = 'bugTrackerDarkMode';
 
 interface User {
   id: string;

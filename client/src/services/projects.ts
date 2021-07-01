@@ -5,13 +5,11 @@ import { setConfig } from './auth';
 
 const getProjects = async () => {
   const response = await Axios.get(`${backendUrl}/projects`, setConfig());
-  console.log(response);
   return response.data;
 };
 
 const getProject = async (id: any) => {
   const response = await Axios.get(`${backendUrl}/projects/${id}`, setConfig());
-  console.log(response);
   return response.data;
 };
 

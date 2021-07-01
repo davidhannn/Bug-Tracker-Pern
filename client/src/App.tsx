@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
-import { Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Routes from './Routes';
-import Axios from 'axios';
-import backendUrl from './backendUrl';
 
-import { autoLogin, selectAuthState } from './redux/slices/authSlice';
+import { autoLogin } from './redux/slices/authSlice';
 import classes from '*.module.css';
 import { useBodyStyles } from './styles/muiStyles';
 
