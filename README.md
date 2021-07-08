@@ -6,7 +6,7 @@ Bug Tracker created with the PERN stack and TypeScript. PostgreSQL was used to s
 
 ## Gif
 
-![Jul-07-2021 22-02-23](https://user-images.githubusercontent.com/7605102/124865194-10bb3400-df6f-11eb-8648-da1b3d21692d.gif)
+![Jul-07-2021 22-03-58](https://user-images.githubusercontent.com/7605102/124865322-49f3a400-df6f-11eb-91c6-4e99af735f29.gif)
 
 Demo: https://bug-tracker-pern.netlify.app/
 
